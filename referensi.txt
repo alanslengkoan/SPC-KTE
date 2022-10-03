@@ -1,0 +1,7 @@
+https://gist.github.com/zyphlar/55dea0fae7914ff8eb4a
+https://www.beliefmedia.com.au/convert-rgb-hsv-hsl-php
+https://stackoverflow.com/questions/1773698/rgb-to-hsv-in-php
+https://github.com/danmadeira/conversao-rgb-hsl
+
+python
+openCV
