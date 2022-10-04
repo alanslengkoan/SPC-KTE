@@ -929,10 +929,10 @@ class Datatables
 
     //tambahan
 
-    public function order_by($orderby)
+    public function order_by($orderby, $sort)
     {
 
-        return $this->ci->db->order_by($orderby);
+        return $this->ci->db->order_by($orderby, $sort);
     }
 }
 
