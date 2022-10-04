@@ -59,7 +59,7 @@ class Profil extends MY_Controller
                 'foto' => $detailFile['file_name'],
             ];
             $this->db->trans_start();
-            $this->crud->u('tb_users', $data, ['id_users' => $this->users->id_users]);
+            $this->crud->u('users', $data, ['id_users' => $this->users->id_users]);
             $this->db->trans_complete();
             if ($this->db->trans_status() === FALSE) {
                 $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
@@ -83,7 +83,7 @@ class Profil extends MY_Controller
             'roles'    => 'admin'
         ];
         $this->db->trans_start();
-        $this->crud->u('tb_users', $data, ['id_users' => $this->users->id_users]);
+        $this->crud->u('users', $data, ['id_users' => $this->users->id_users]);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $response = ['title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
@@ -103,18 +103,18 @@ class Profil extends MY_Controller
         $pwd_baru = $post['inppasswordbaru'];
         $konfirmasi_pwd_baru = $post['inpkonfirmasipassword'];
 
-        $users = $this->crud->gda('tb_users', ['id_users' => $this->users->id_users]);
+        $users = $this->crud->gda('users', ['id_users' => $this->users->id_users]);
         $check_pwd = password_verify($pwd_lama, $users['password']);
 
         if ($check_pwd === true) {
             if ($pwd_baru === $konfirmasi_pwd_baru) {
-                
+
                 $data = [
                     'password' => password_hash($pwd_baru, PASSWORD_DEFAULT),
                     'roles'    => 'admin'
                 ];
                 $this->db->trans_start();
-                $this->crud->u('tb_users', $data, ['id_users' => $this->users->id_users]);
+                $this->crud->u('users', $data, ['id_users' => $this->users->id_users]);
                 $this->db->trans_complete();
                 if ($this->db->trans_status() === FALSE) {
                     $response = ['title' => 'Gagal!', 'text' => 'Terdapat kesalahan pada sistem!', 'type' => 'error', 'button' => 'Ok!'];

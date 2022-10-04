@@ -28,7 +28,7 @@ if (!function_exists('get_users_detail')) {
     {
         if ($id) {
             $ci = get_instance();
-            $result = $ci->db->query("SELECT * FROM tb_users WHERE id = '$id'")->row();
+            $result = $ci->db->query("SELECT * FROM users WHERE id = '$id'")->row();
             return $result;
         }
     }

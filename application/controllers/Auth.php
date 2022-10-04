@@ -41,7 +41,7 @@ class Auth extends MY_Controller
     // untuk mengecek data username dan password
     public function auth($username, $password)
     {
-        $user = $this->db->get_where('tb_users', ['username' => $username]);
+        $user = $this->db->get_where('users', ['username' => $username]);
         $count = $user->result();
         if (count($count) >= 1) {
             $row = $user->row_array();
@@ -104,7 +104,7 @@ class Auth extends MY_Controller
 
         // data users
         $users = [
-            'id_users' => acak_id('tb_users', 'id_users'),
+            'id_users' => acak_id('users', 'id_users'),
             'nama'     => $post['nama'],
             'email'    => $post['email'],
             'username' => $post['username'],
@@ -118,7 +118,7 @@ class Auth extends MY_Controller
         ];
 
         $this->db->trans_start();
-        $this->crud->i('tb_users', $users);
+        $this->crud->i('users', $users);
         $this->crud->i('tb_pelanggan', $pelanggan);
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {

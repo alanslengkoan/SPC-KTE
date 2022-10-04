@@ -64,7 +64,7 @@ class Distribusi extends MY_Controller
 
         $this->db->trans_start();
         if (empty($post['inpiddistribusi'])) {
-            $distribusi['id_users'] = acak_id('tb_users', 'id_users');
+            $distribusi['id_users'] = acak_id('users', 'id_users');
 
             $users = [
                 'id_users' => $distribusi['id_users'],
@@ -75,7 +75,7 @@ class Distribusi extends MY_Controller
                 'roles'    => 'distribusi',
             ];
             // insert tabel users
-            $this->crud->i('tb_users', $users);
+            $this->crud->i('users', $users);
             // insert tabel dsitribusi
             $this->crud->i('tb_distribusi', $distribusi);
         } else {
@@ -84,7 +84,7 @@ class Distribusi extends MY_Controller
                 'email' => $post['inpemail'],
             ];
             // update tabel users
-            $this->crud->u('tb_users', $users, ['id_users' => $post['inpidusers']]);
+            $this->crud->u('users', $users, ['id_users' => $post['inpidusers']]);
             // update tabel distribusi
             $this->crud->u('tb_distribusi', $distribusi, ['id_users' => $post['inpidusers'], 'id_distribusi' => $post['inpiddistribusi']]);
         }

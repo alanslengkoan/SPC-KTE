@@ -64,7 +64,7 @@ class Supplier extends MY_Controller
 
         $this->db->trans_start();
         if (empty($post['inpidsupplier'])) {
-            $supplier['id_users'] = acak_id('tb_users', 'id_users');
+            $supplier['id_users'] = acak_id('users', 'id_users');
 
             $users = [
                 'id_users' => $supplier['id_users'],
@@ -75,7 +75,7 @@ class Supplier extends MY_Controller
                 'roles'    => 'supplier',
             ];
             // insert tabel users
-            $this->crud->i('tb_users', $users);
+            $this->crud->i('users', $users);
             // insert tabel supplier
             $this->crud->i('tb_supplier', $supplier);
         } else {
@@ -84,7 +84,7 @@ class Supplier extends MY_Controller
                 'email' => $post['inpemail'],
             ];
             // update tabel users
-            $this->crud->u('tb_users', $users, ['id_users' => $post['inpidusers']]);
+            $this->crud->u('users', $users, ['id_users' => $post['inpidusers']]);
             // update tabel supplier
             $this->crud->u('tb_supplier', $supplier, ['id_users' => $post['inpidusers'], 'id_supplier' => $post['inpidsupplier']]);
         }
