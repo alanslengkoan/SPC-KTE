@@ -17,7 +17,7 @@ class Auth extends MY_Controller
         checking_role_session($this->role);
 
         if (empty($this->username)) {
-            $this->load->view('home/login/view');
+            $this->load->view('login/view');
         } else {
             $this->auth($this->username, $this->password);
         }
@@ -29,7 +29,7 @@ class Auth extends MY_Controller
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
-            $this->load->view('home/login/view');
+            $this->load->view('login/view');
         } else {
             $username = htmlspecialchars($this->input->post('username', TRUE), ENT_QUOTES);
             $password = htmlspecialchars($this->input->post('password', TRUE), ENT_QUOTES);
@@ -91,7 +91,7 @@ class Auth extends MY_Controller
         checking_role_session($this->role);
 
         if (empty($this->username)) {
-            $this->load->view('home/register/view');
+            $this->load->view('register/view');
         } else {
             $this->auth($this->username, $this->password);
         }
