@@ -8,3 +8,22 @@ https://ilmudatapy.com/algoritma-k-nearest-neighbor-knn-untuk-klasifikasi/
 
 python
 openCV
+
+
+
+
+data latih telur dalam bentuk gambar
+ambil nilai rgb dari gambar data latih
+
+step 1
+pelahari metode knn
+
+
+
+
+nilai rgb yg akan diuji masuk ke knn
+buat data uji input nilai rgb dari gambar
+
+master
+- klasifikasi
+- data uji
