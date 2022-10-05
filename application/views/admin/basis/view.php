@@ -76,7 +76,10 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Gambar *</label>
                         <div class="col-sm-9">
+                            <div id="lihat_gambar"></div>
                             <input type="file" class="form-control" name="image" id="image" />
+                            <div id="centang_gambar"></div>
+                            <p>File dengan tipe (*.jpg,*.jpeg,*.png) Max. 20MB</p>
                         </div>
                     </div>
                 </div>

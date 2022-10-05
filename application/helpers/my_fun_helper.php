@@ -554,10 +554,17 @@ if (!function_exists('add_picture')) {
             // apa bila gagal
             $error = array('error' => $CI->upload->display_errors());
 
-            $result = strip_tags($error['error']);
+            $result = [
+                'status'  => false,
+                'message' => strip_tags($error['error']),
+            ];
         } else {
             // apa bila berhasil
-            $result = $CI->upload->data();
+            $result = [
+                'status'  => true,
+                'message' => 'Berhasil Upload!',
+                'data'    => $CI->upload->data(),
+            ];
         }
         return $result;
     }

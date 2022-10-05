@@ -10,9 +10,10 @@ class M_basis extends CI_Model
 
     public function get_all_data_dt()
     {
-        // $this->datatables->select('k.id_klasifikasi, k.nama');
-        // $this->datatables->order_by('k.created_at', 'desc');
-        // $this->datatables->from('klasifikasi AS k');
-        // return print_r($this->datatables->generate());
+        $this->datatables->select('b.id_basis, b.image, b.r, b.g, b.b, k.nama');
+        $this->datatables->join('klasifikasi AS k', 'k.id_klasifikasi = b.id_klasifikasi', 'left');
+        $this->datatables->order_by('b.created_at', 'desc');
+        $this->datatables->from('basis AS b');
+        return print_r($this->datatables->generate());
     }
 }
