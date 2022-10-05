@@ -2,15 +2,23 @@
 <html class="no-js" lang="en">
 
 <head>
-    <title>Selamat Datang</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Sistem Informasi Pemesanan" />
-    <meta name="keywords" content="Sistem Informasi Pemesanan" />
-    <meta name="author" content="Sistem Informasi Pemesanan" />
+    <meta name="description" content="Sistem Informasi" />
+    <meta name="keywords" content="Sistem Informasi" />
+    <meta name="author" content="Sistem Informasi" />
 
-    <link rel="shortcut icon" href="<?= assets_url() ?>admin/images/favicon.ico" type="image/x-icon">
+    <title>Selamat Datang</title>
+
+    <!-- begin:: icon -->
+    <link rel="apple-touch-icon" href="<?= assets_url() ?>admin/images/icon/apple-touch-icon.png" sizes="180x180" />
+    <link rel="icon" href="<?= assets_url() ?>admin/images/icon/favicon-32x32.png" type="image/x-icon" sizes="32x32" />
+    <link rel="icon" href="<?= assets_url() ?>admin/images/icon/favicon-16x16.png" type="image/x-icon" sizes="16x16" />
+    <link rel="icon" href="<?= assets_url() ?>admin/images/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= assets_url() ?>admin/images/icon/favicon.ico" type="image/x-icon">
+    <!-- end:: icon -->
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/pages/waves/css/waves.min.css" media="all" />
@@ -82,7 +90,7 @@
                 <div class="col-sm-12">
                     <?= form_open('auth/check_validation', array('id' => 'form-login', 'class' => 'md-float-material form-material', 'method' => 'post')) ?>
                     <div class="text-center">
-                        <img src="<?= assets_url() ?>logo.png" alt="logo.png" width="240">
+                        <img src="<?= assets_url() ?>logo.png" alt="logo.png" width="180">
                     </div>
                     <div class="auth-box card">
                         <div class="card-block">
@@ -104,7 +112,6 @@
                             <div class="row m-t-30">
                                 <div class="col-md-12">
                                     <?= form_input(array('type' => 'submit', 'name' => 'login', 'value' => 'Login', 'id' => 'login', 'class' => 'btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20')) ?>
-                                    <a href="<?= base_url() ?>" class="btn btn-danger btn-md btn-block waves-effect waves-light text-center m-b-20">Batal</a>
                                 </div>
                             </div>
                         </div>

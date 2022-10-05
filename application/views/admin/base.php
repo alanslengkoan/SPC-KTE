@@ -2,15 +2,23 @@
 <html class="no-js" lang="en">
 
 <head>
-    <title>Sistem Informasi Supply Chain - <?= $title ?> | <?= ucfirst($this->session->userdata('role')) ?></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Sistem Informasi Supply Chain" />
-    <meta name="keywords" content="Sistem Informasi Supply Chain" />
-    <meta name="author" content="Sistem Informasi Supply Chain" />
+    <meta name="description" content="Sistem Informasi" />
+    <meta name="keywords" content="Sistem Informasi" />
+    <meta name="author" content="Sistem Informasi" />
 
-    <link rel="shortcut icon" href="<?= assets_url() ?>admin/images/favicon.ico" type="image/x-icon">
+    <title>Sistem Informasi - <?= $title ?> | <?= ucfirst($this->session->userdata('role')) ?></title>
+
+    <!-- begin:: icon -->
+    <link rel="apple-touch-icon" href="<?= assets_url() ?>admin/images/icon/apple-touch-icon.png" sizes="180x180" />
+    <link rel="icon" href="<?= assets_url() ?>admin/images/icon/favicon-32x32.png" type="image/x-icon" sizes="32x32" />
+    <link rel="icon" href="<?= assets_url() ?>admin/images/icon/favicon-16x16.png" type="image/x-icon" sizes="16x16" />
+    <link rel="icon" href="<?= assets_url() ?>admin/images/icon/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= assets_url() ?>admin/images/icon/favicon.ico" type="image/x-icon">
+    <!-- end:: icon -->
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" />
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?= assets_url() ?>admin/icon/icofont/css/icofont.css">
