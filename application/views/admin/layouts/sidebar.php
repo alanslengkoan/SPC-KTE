@@ -43,6 +43,17 @@
                 </a>
             </li>
         </ul>
+        <div class="pcoded-navigation-label">Metode</div>
+        <ul class="pcoded-item pcoded-left-item">
+            <li class="<?= ($this->uri->segment(2) === 'konsultasi' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>konsultasi">
+                    <span class="pcoded-micon">
+                        <i class="fa fa-circle"></i>
+                    </span>
+                    <span class="pcoded-mtext">Konsultasi</span>
+                </a>
+            </li>
+        </ul>
         <!-- end:: menu sidebar -->
     </div>
 </nav>
