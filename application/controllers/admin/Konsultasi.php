@@ -68,7 +68,10 @@ class Konsultasi extends MY_Controller
             $result[$value['id_basis']] = $hitung;
         }
 
-        ksort($result);
+        uasort($result, function ($a, $b) {
+            return $a - $b;
+        });
+
         debug($result);
     }
 }
