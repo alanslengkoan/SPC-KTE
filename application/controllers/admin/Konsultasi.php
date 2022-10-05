@@ -47,6 +47,7 @@ class Konsultasi extends MY_Controller
         $this->_response($response);
     }
 
+    // untuk proses algoritma
     public function results($id)
     {
         $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
