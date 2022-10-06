@@ -12,6 +12,7 @@ class Konsultasi extends MY_Controller
 
         // untuk load model
         $this->load->model('m_basis');
+        $this->load->model('m_konsultasi');
     }
 
     // untuk default
@@ -19,6 +20,12 @@ class Konsultasi extends MY_Controller
     {
         // untuk load view
         $this->template->load('admin', 'Konsultasi', 'konsultasi', 'view');
+    }
+
+    // untuk get data
+    public function get_data_dt()
+    {
+        $this->m_konsultasi->get_all_data_dt();
     }
 
     // untuk proses
@@ -50,10 +57,9 @@ class Konsultasi extends MY_Controller
     // untuk proses algoritma
     public function results($id)
     {
-        $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
-        $basis      = $this->m_basis->get_all();
-        $data       = $basis->result_array();
-        $image_loc  = upload_path('gambar') . $konsultasi['image'];
+        $get_konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
+        $get_basis      = $this->m_basis->get_all();
+        $image_loc      = upload_path('gambar') . $get_konsultasi['image'];
 
         $this->imagesampler->image($image_loc);
         $this->imagesampler->set_steps(1);
@@ -63,16 +69,35 @@ class Konsultasi extends MY_Controller
         $objek = $rgb[0][0];
 
         $result = [];
-        foreach ($data as $key => $value) {
+        $sort   = [];
+        $basis  = [];
+        foreach ($get_basis->result_array() as $key => $value) {
             $hitung = sqrt(pow($objek[0] - $value['r'], 2) + pow($objek[1] - $value['g'], 2) + pow($objek[2] - $value['b'], 2));
 
+            $basis[$value['id_basis']] = $value;
             $result[$value['id_basis']] = $hitung;
+            $sort[$value['id_basis']] = $hitung;
         }
 
-        uasort($result, function ($a, $b) {
+        $konsultasi = [
+            'image' => $get_konsultasi['image'],
+            'r'     => $objek[0],
+            'g'     => $objek[1],
+            'b'     => $objek[2],
+        ];
+
+        uasort($sort, function ($a, $b) {
             return $a - $b;
         });
 
-        debug($result);
+        $data = [
+            'basis'      => $basis,
+            'result'     => $result,
+            'sort'       => $sort,
+            'konsultasi' => $konsultasi,
+        ];
+
+        // untuk load view
+        $this->template->load('admin', 'Hasil Konsultasi', 'konsultasi', 'result', $data);
     }
 }
