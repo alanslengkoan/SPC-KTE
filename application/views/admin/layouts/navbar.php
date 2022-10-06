@@ -35,11 +35,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= admin_url() ?>pengaturan">
-                                        <i class="feather icon-settings"></i> Pengaturan
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="<?= logout_url() ?>">
                                         <i class="feather icon-log-out"></i> Logout
                                     </a>
