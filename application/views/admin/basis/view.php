@@ -58,6 +58,7 @@
             </div>
             <form id="form-add-upd" action="<?= admin_url() ?>basis/process_save" method="POST">
                 <!-- begin:: id -->
+                <input type="hidden" id="<?= $this->security->get_csrf_token_name() ?>" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>" />
                 <input type="hidden" name="id_basis" id="id_basis" />
                 <!-- end:: id -->
 

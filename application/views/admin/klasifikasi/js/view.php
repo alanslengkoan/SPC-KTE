@@ -83,6 +83,7 @@
                             button: response.button,
                         }).then((value) => {
                             $('#modal-add-upd').modal('hide');
+                            csrf.val(response.csrf);
                             dataTable.ajax.reload();
                         });
                         $('#btn-save').removeAttr('disabled');
@@ -113,7 +114,8 @@
                 url: "<?= admin_url() ?>klasifikasi/get",
                 dataType: 'json',
                 data: {
-                    id: ini.data('id')
+                    id: ini.data('id'),
+                    '<?= $this->security->get_csrf_token_name() ?>': csrf.val(),
                 },
                 beforeSend: function() {
                     $('#judul-add-upd').html('Ubah');
@@ -125,6 +127,7 @@
                     ini.html('<i class="fa fa-spinner"></i>&nbsp;Menunggu...');
                 },
                 success: function(response) {
+                    csrf.val(response.csrf);
                     $('#id_klasifikasi').val(response.id_klasifikasi);
                     $('#nama').val(response.nama);
 
@@ -153,19 +156,21 @@
                         url: "<?= admin_url() ?>klasifikasi/process_del",
                         dataType: 'json',
                         data: {
-                            id: ini.data('id')
+                            id: ini.data('id'),
+                            '<?= $this->security->get_csrf_token_name() ?>': csrf.val(),
                         },
                         beforeSend: function() {
                             ini.attr('disabled', 'disabled');
                             ini.html('<i class="fa fa-spinner"></i>&nbsp;Menunggu...');
                         },
-                        success: function(data) {
+                        success: function(response) {
                             swal({
-                                title: data.title,
-                                text: data.text,
-                                icon: data.type,
-                                button: data.button,
+                                title: response.title,
+                                text: response.text,
+                                icon: response.type,
+                                button: response.button,
                             }).then((value) => {
+                                csrf.val(response.csrf);
                                 dataTable.ajax.reload();
                             });
                         }

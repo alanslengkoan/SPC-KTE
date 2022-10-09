@@ -74,6 +74,10 @@
     <script type="text/javascript" src="<?= assets_url() ?>admin/sweetalert/js/sweetalert.min.js"></script>
     <script type="text/javascript" src="<?= assets_url() ?>admin/js/custom.js"></script>
 
+    <script>
+        let csrf = $('#<?= $this->security->get_csrf_token_name() ?>');
+    </script>
+
     <!-- begin:: js local -->
     <?php empty($js) ? '' : $this->load->view($js); ?>
     <!-- end:: js local -->

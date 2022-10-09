@@ -51,7 +51,7 @@ class Konsultasi extends MY_Controller
         } else {
             $response = ['title' => 'Gagal!', 'text' => $image['message'], 'type' => 'error', 'button' => 'Ok!'];
         }
-        $this->_response($response);
+        $this->_response_message($response);
     }
 
     // untuk proses algoritma

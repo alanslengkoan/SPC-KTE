@@ -34,7 +34,7 @@ class Klasifikasi extends MY_Controller
 
         $response = $this->crud->gda('klasifikasi', ['id_klasifikasi' => $post['id']]);
 
-        $this->_response($response);
+        $this->_response_message($response);
     }
 
     // untuk proses tambah data
@@ -60,7 +60,7 @@ class Klasifikasi extends MY_Controller
             $response = ['title' => 'Berhasil!', 'text' => 'Berhasil Simpan!', 'type' => 'success', 'button' => 'Ok!'];
         }
 
-        $this->_response($response);
+        $this->_response_message($response);
     }
 
     // untuk proses hapus data
@@ -83,6 +83,6 @@ class Klasifikasi extends MY_Controller
             }
         }
 
-        $this->_response($response);
+        $this->_response_message($response);
     }
 }

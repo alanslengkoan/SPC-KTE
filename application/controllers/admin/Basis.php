@@ -38,7 +38,7 @@ class Basis extends MY_Controller
 
         $response = $this->crud->gda('basis', ['id_basis' => $post['id']]);
 
-        $this->_response($response);
+        $this->_response_message($response);
     }
 
     // untuk proses tambah data
@@ -127,7 +127,7 @@ class Basis extends MY_Controller
                 }
             }
         }
-        $this->_response($response);
+        $this->_response_message($response);
     }
 
     // untuk proses hapus data
@@ -155,6 +155,6 @@ class Basis extends MY_Controller
             }
         }
 
-        $this->_response($response);
+        $this->_response_message($response);
     }
 }
