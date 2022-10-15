@@ -31,11 +31,14 @@ class Konsultasi extends MY_Controller
     // untuk proses
     public function process()
     {
+        $post = $this->input->post(NULL, TRUE);
+
         $image = add_picture('image');
 
         if ($image['status']) {
 
             $data = [
+                'nama'  => $post['nama'],
                 'image' => $image['data']['file_name'],
             ];
 
@@ -84,6 +87,7 @@ class Konsultasi extends MY_Controller
         }
 
         $konsultasi = [
+            'nama'  => $get_konsultasi['nama'],
             'image' => $get_konsultasi['image'],
             'r'     => $objek[0],
             'g'     => $objek[1],

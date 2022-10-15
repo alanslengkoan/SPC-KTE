@@ -113,14 +113,15 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="w-75 p-2">Hasil</h5>
+                                <h5 class="w-75 p-2">Hasil Konsultasi</h5>
                             </div>
                         </div>
                     </div>
                     <div class="card-block table-border-style">
-                        <table class="table table-striped table-bordered nowrap" id="tabel-hasil" style="width: 100%;">
+                        <table class="table table-striped table-bordered" id="tabel-hasil" style="width: 100%;">
                             <thead>
                                 <tr align="center">
+                                    <th>Nama</th>
                                     <th>Image</th>
                                     <th>r</th>
                                     <th>g</th>
@@ -128,11 +129,11 @@
                                     <th>h</th>
                                     <th>s</th>
                                     <th>v</th>
-                                    <th>Label</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr align="center">
+                                    <td><?= $konsultasi['nama'] ?></td>
                                     <td><img src="<?= upload_url('gambar') ?><?= $konsultasi['image'] ?>" width="100" heigth="100" /></td>
                                     <td><?= $konsultasi['r'] ?></td>
                                     <td><?= $konsultasi['g'] ?></td>
@@ -140,10 +141,24 @@
                                     <td><?= $konsultasi['h'] ?></td>
                                     <td><?= $konsultasi['s'] ?></td>
                                     <td><?= $konsultasi['v'] ?></td>
-                                    <td><?= $basis[array_key_first($sort)]['nama'] ?></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <hr>
+                        <form>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Klasifikasi</label>
+                                <div class="col-sm-9">
+                                    <?= $basis[array_key_first($sort)]['nama'] ?>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Deskripsi</label>
+                                <div class="col-sm-9 text-justify">
+                                    <?= $basis[array_key_first($sort)]['deskripsi'] ?>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -69,6 +69,12 @@
                             <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama klasifikasi" />
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Deskripsi *</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" name="deskripsi" id="deskripsi" placeholder="Masukkan deskripsi klasifikasi"></textarea>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger btn-sm waves-effect" id="btn-cancel" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Batal</button>

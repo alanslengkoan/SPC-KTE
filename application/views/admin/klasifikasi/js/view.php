@@ -37,6 +37,14 @@
                     className: 'text-center',
                 },
                 {
+                    title: 'Deskripsi',
+                    data: null,
+                    class: 'text-center',
+                    render: function(data, type, full, meta) {
+                        return readMore(full.deskripsi);
+                    },
+                },
+                {
                     title: 'Aksi',
                     responsivePriority: -1,
                     className: 'text-center',
@@ -61,6 +69,7 @@
             e.preventDefault();
 
             $('#nama').attr('required', 'required');
+            $('#deskripsi').attr('required', 'required');
 
             if ($('#form-add-upd').parsley().isValid() == true) {
                 $.ajax({
@@ -130,6 +139,7 @@
                     csrf.val(response.csrf);
                     $('#id_klasifikasi').val(response.id_klasifikasi);
                     $('#nama').val(response.nama);
+                    $('#deskripsi').val(response.deskripsi);
 
                     ini.removeAttr('disabled');
                     ini.html('<i class="fa fa-pencil"></i>&nbsp;Ubah');

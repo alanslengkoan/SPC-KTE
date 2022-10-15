@@ -6,6 +6,7 @@
         $(document).on('submit', '#form-konsultasi', function(e) {
             e.preventDefault();
 
+            $('#nama').attr('required', 'required');
             $('#image').attr('required', 'required');
 
             if ($('#form-konsultasi').parsley().isValid() == true) {

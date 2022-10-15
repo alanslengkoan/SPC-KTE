@@ -45,6 +45,7 @@ class Klasifikasi extends MY_Controller
         $data = [
             'id_klasifikasi' => $post['id_klasifikasi'],
             'nama'           => $post['nama'],
+            'deskripsi'      => $post['deskripsi'],
         ];
 
         $this->db->trans_start();

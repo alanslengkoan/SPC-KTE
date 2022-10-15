@@ -46,10 +46,14 @@ function autoSeparator(Num) {
     return x1 + x2;
 };
 
-// untuk string kapital
-function capitalize(s) {
-    if (typeof s !== 'string') return ''
-    return s.charAt(0).toUpperCase() + s.slice(1)
+// untuk tulisan kapital
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// untuk cut text
+function readMore(string) {
+    return string.substring(0, 100) + '...';
 }
 
 // untuk input nomor type text
@@ -73,3 +77,6 @@ function capitalize(s) {
 $(".inputNumber").inputFilter(function (value) {
     return /^-?\d*$/.test(value);
 });
+
+// untuk debugin console log
+const log = (arg) => console.log(arg);

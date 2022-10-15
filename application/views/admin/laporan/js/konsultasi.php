@@ -30,6 +30,11 @@
                     }
                 },
                 {
+                    title: 'Nama',
+                    data: 'nama',
+                    className: 'text-center',
+                },
+                {
                     title: 'Image',
                     className: 'text-center',
                     render: function(data, type, full, meta) {
