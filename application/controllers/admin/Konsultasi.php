@@ -65,18 +65,22 @@ class Konsultasi extends MY_Controller
         $this->imagesampler->set_steps(1);
         $this->imagesampler->init();
 
-        $rgb   = $this->imagesampler->sample();
-        $objek = $rgb[0][0];
+        $rgb       = $this->imagesampler->sample();
+        $objek     = $rgb[0][0];
+        $hsv_objek = $this->imagesampler->rgb_to_hsv($objek[0], $objek[1], $objek[2]);
 
         $result = [];
         $sort   = [];
         $basis  = [];
+        $hsv    = [];
         foreach ($get_basis->result_array() as $key => $value) {
-            $hitung = sqrt(pow($objek[0] - $value['r'], 2) + pow($objek[1] - $value['g'], 2) + pow($objek[2] - $value['b'], 2));
+            $rgb_to_hsv = $this->imagesampler->rgb_to_hsv($value['r'], $value['g'], $value['b']);
+            $hitung     = sqrt(pow($objek[0] - $value['r'], 2) + pow($objek[1] - $value['g'], 2) + pow($objek[2] - $value['b'], 2));
 
-            $basis[$value['id_basis']] = $value;
+            $basis[$value['id_basis']]  = $value;
             $result[$value['id_basis']] = $hitung;
-            $sort[$value['id_basis']] = $hitung;
+            $sort[$value['id_basis']]   = $hitung;
+            $hsv[$value['id_basis']]    = $rgb_to_hsv;
         }
 
         $konsultasi = [
@@ -84,6 +88,9 @@ class Konsultasi extends MY_Controller
             'r'     => $objek[0],
             'g'     => $objek[1],
             'b'     => $objek[2],
+            'h'     => $hsv_objek['H'],
+            's'     => $hsv_objek['S'],
+            'v'     => $hsv_objek['V'],
         ];
 
         uasort($sort, function ($a, $b) {
@@ -94,6 +101,7 @@ class Konsultasi extends MY_Controller
             'basis'      => $basis,
             'result'     => $result,
             'sort'       => $sort,
+            'hsv'        => $hsv,
             'konsultasi' => $konsultasi,
         ];
 

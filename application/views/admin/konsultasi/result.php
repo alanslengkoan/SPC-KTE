@@ -43,6 +43,9 @@
                                     <th>r</th>
                                     <th>g</th>
                                     <th>b</th>
+                                    <th>h</th>
+                                    <th>s</th>
+                                    <th>v</th>
                                     <th>Label</th>
                                     <th>Euclidian Distance</th>
                                 </tr>
@@ -54,6 +57,9 @@
                                         <td><?= $basis[$key]['r'] ?></td>
                                         <td><?= $basis[$key]['g'] ?></td>
                                         <td><?= $basis[$key]['b'] ?></td>
+                                        <td><?= $hsv[$key]['H'] ?></td>
+                                        <td><?= $hsv[$key]['S'] ?></td>
+                                        <td><?= $hsv[$key]['V'] ?></td>
                                         <td><?= $basis[$key]['nama'] ?></td>
                                         <td><?= $value ?></td>
                                     </tr>
@@ -78,6 +84,9 @@
                                     <th>r</th>
                                     <th>g</th>
                                     <th>b</th>
+                                    <th>h</th>
+                                    <th>s</th>
+                                    <th>v</th>
                                     <th>Label</th>
                                     <th>Euclidian Distance</th>
                                 </tr>
@@ -89,6 +98,9 @@
                                         <td><?= $basis[$key]['r'] ?></td>
                                         <td><?= $basis[$key]['g'] ?></td>
                                         <td><?= $basis[$key]['b'] ?></td>
+                                        <td><?= $hsv[$key]['H'] ?></td>
+                                        <td><?= $hsv[$key]['S'] ?></td>
+                                        <td><?= $hsv[$key]['V'] ?></td>
                                         <td><?= $basis[$key]['nama'] ?></td>
                                         <td><?= $value ?></td>
                                     </tr>
@@ -113,6 +125,9 @@
                                     <th>r</th>
                                     <th>g</th>
                                     <th>b</th>
+                                    <th>h</th>
+                                    <th>s</th>
+                                    <th>v</th>
                                     <th>Label</th>
                                 </tr>
                             </thead>
@@ -122,6 +137,9 @@
                                     <td><?= $konsultasi['r'] ?></td>
                                     <td><?= $konsultasi['g'] ?></td>
                                     <td><?= $konsultasi['b'] ?></td>
+                                    <td><?= $konsultasi['h'] ?></td>
+                                    <td><?= $konsultasi['s'] ?></td>
+                                    <td><?= $konsultasi['v'] ?></td>
                                     <td><?= $basis[array_key_first($sort)]['nama'] ?></td>
                                 </tr>
                             </tbody>
