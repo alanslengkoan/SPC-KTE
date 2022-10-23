@@ -78,10 +78,10 @@ class Auth extends MY_Controller
                     exit(json_encode(array('status' => true, 'link' => supplier_url())));
                 }
             } else {
-                exit(json_encode(['title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!']));
+                exit($this->_response_message(['title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!']));
             }
         } else {
-            exit(json_encode(['title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!']));
+            exit($this->_response_message(['title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!']));
         }
     }
 

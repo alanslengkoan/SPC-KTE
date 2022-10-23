@@ -118,11 +118,24 @@
                         </div>
                     </div>
                     <div class="card-block table-border-style">
+                        <div class="row">
+                            <div class="col-lg-4 pb-4 text-center">
+                                <img src="<?= admin_url() ?>/konsultasi/img_one/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                            </div>
+                            <div class="col-lg-4 pb-4 text-center">
+                                <img src="<?= admin_url() ?>/konsultasi/img_two/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                            </div>
+                            <div class="col-lg-4 pb-4 text-center">
+                                <img src="<?= admin_url() ?>/konsultasi/img_three/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                            </div>
+                            <div class="col-lg-4 pb-4 text-center">
+                                <img src="<?= admin_url() ?>/konsultasi/img_four/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                            </div>
+                        </div>
                         <table class="table table-striped table-bordered" id="tabel-hasil" style="width: 100%;">
                             <thead>
                                 <tr align="center">
                                     <th>Nama</th>
-                                    <th>Image</th>
                                     <th>r</th>
                                     <th>g</th>
                                     <th>b</th>
@@ -134,7 +147,6 @@
                             <tbody>
                                 <tr align="center">
                                     <td><?= $konsultasi['nama'] ?></td>
-                                    <td><img src="<?= upload_url('gambar') ?><?= $konsultasi['image'] ?>" width="100" heigth="100" /></td>
                                     <td><?= $konsultasi['r'] ?></td>
                                     <td><?= $konsultasi['g'] ?></td>
                                     <td><?= $konsultasi['b'] ?></td>
