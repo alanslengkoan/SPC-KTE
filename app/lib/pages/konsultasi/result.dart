@@ -1,4 +1,4 @@
-import 'package:Safety/model/m_kecelakaan_chart.dart';
+import 'package:SPC_Telur/model/m_kecelakaan_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -77,9 +77,10 @@ class _ChartKecelakaanState extends State<ChartKecelakaan> {
         child: Column(
           children: <Widget>[
             Expanded(
-              child: _showChart ?? const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+              child: _showChart ??
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
             )
           ],
         ),

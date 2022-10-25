@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('SAFETY'),
+          child: Text('SPC_Telur'),
         ),
         backgroundColor: const Color(0xFF1071BA),
       ),
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
                     child: InkWell(
                       splashColor: Colors.blue.withAlpha(30),
                       onTap: () {
-                        Navigator.pushNamed(context, '/kecelakaan/chart');
+                        Navigator.pushNamed(context, '/konsultasi/result');
                       },
                       child: const SizedBox(
                         width: 150,
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
                     child: InkWell(
                       splashColor: Colors.blue.withAlpha(30),
                       onTap: () {
-                        Navigator.pushNamed(context, '/kecelakaan/add');
+                        Navigator.pushNamed(context, '/konsultasi/add');
                       },
                       child: const SizedBox(
                         width: 150,

@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:Safety/pages/home.dart';
+import 'package:SPC_Telur/pages/home.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -22,7 +22,7 @@ class _SplashState extends State<Splash> {
           ),
           Container(
             child: const Text(
-              'SAFETY',
+              'SPC Telur',
               style: TextStyle(
                 fontSize: 18,
                 color: Color(0xFF1071BA),

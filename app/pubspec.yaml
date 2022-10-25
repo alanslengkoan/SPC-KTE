@@ -1,4 +1,4 @@
-name: Safety
+name: SPC_Telur
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -43,7 +43,6 @@ dependencies:
   intl: ^0.17.0
   carousel_slider: ^4.1.1
   flutter_launcher_icons: ^0.10.0
-  video_player: ^2.4.7
 
 dev_dependencies:
   flutter_test:

@@ -1,8 +1,8 @@
-import 'package:Safety/pages/about.dart';
-import 'package:Safety/pages/home.dart';
-import 'package:Safety/pages/kecelakaan/add.dart';
-import 'package:Safety/pages/kecelakaan/chart.dart';
-import 'package:Safety/splash.dart';
+import 'package:SPC_Telur/pages/about.dart';
+import 'package:SPC_Telur/pages/home.dart';
+import 'package:SPC_Telur/pages/konsultasi/add.dart';
+import 'package:SPC_Telur/pages/konsultasi/result.dart';
+import 'package:SPC_Telur/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SAFETY',
+      title: 'SPC Telur',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color(0xFFFFFFFF),
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Splash(),
         '/home': (context) => const Home(),
         '/about': (context) => const About(title: 'About'),
-        '/kecelakaan/chart': (context) => const ChartKecelakaan(title: 'Chart Near Miss'),
-        '/kecelakaan/add': (context) => const AddKecelakaan(title: 'Tambah Near Miss'),
+        '/konsultasi/add': (context) => const AddKecelakaan(title: 'Konsultasi'),
+        '/konsultasi/result': (context) => const ChartKecelakaan(title: 'Hasil Konsultasi'),
       },
     );
   }
