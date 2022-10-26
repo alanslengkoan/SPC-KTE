@@ -25,7 +25,7 @@ class _SplashState extends State<Splash> {
               'SPC Telur',
               style: TextStyle(
                 fontSize: 18,
-                color: Color(0xFF1071BA),
+                color: Color(0xFF1C6758),
               ),
             ),
           )

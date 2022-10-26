@@ -70,7 +70,7 @@ class _ChartKecelakaanState extends State<ChartKecelakaan> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(widget.title),
-        backgroundColor: const Color(0xFF1071BA),
+        backgroundColor: const Color(0xFF1C6758),
       ),
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),

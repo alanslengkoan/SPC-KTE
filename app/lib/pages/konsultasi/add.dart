@@ -218,7 +218,7 @@ class _KecelakaanState extends State<AddKecelakaan> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(widget.title),
-        backgroundColor: const Color(0xFF1071BA),
+        backgroundColor: const Color(0xFF1C6758),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 20.0),

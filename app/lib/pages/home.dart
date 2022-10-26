@@ -13,8 +13,6 @@ class _HomeState extends State<Home> {
     'assets/slide/slide1.jpg',
     'assets/slide/slide2.jpg',
     'assets/slide/slide3.jpg',
-    'assets/slide/slide4.jpg',
-    'assets/slide/slide5.jpg',
   ];
 
   @override
@@ -22,9 +20,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('SPC_Telur'),
+          child: Text('SPC Telur'),
         ),
-        backgroundColor: const Color(0xFF1071BA),
+        backgroundColor: const Color(0xFF1C6758),
       ),
       body: Center(
         child: Column(
@@ -48,49 +46,7 @@ class _HomeState extends State<Home> {
                 children: <Widget>[
                   Card(
                     child: InkWell(
-                      splashColor: Colors.blue.withAlpha(30),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/konsultasi/result');
-                      },
-                      child: const SizedBox(
-                        width: 150,
-                        height: 100,
-                        child: Icon(
-                          Icons.bar_chart,
-                          color: Colors.blue,
-                          size: 70,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Card(
-                    child: InkWell(
-                      splashColor: Colors.blue.withAlpha(30),
-                      onTap: () {
-                        Navigator.pushNamed(context, '/konsultasi/add');
-                      },
-                      child: const SizedBox(
-                        width: 150,
-                        height: 100,
-                        child: Icon(
-                          Icons.add,
-                          color: Colors.blue,
-                          size: 70,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Card(
-                    child: InkWell(
-                      splashColor: Colors.blue.withAlpha(30),
+                      splashColor: Colors.green.withAlpha(30),
                       onTap: () {
                         Navigator.pushNamed(context, '/about');
                       },
@@ -99,7 +55,24 @@ class _HomeState extends State<Home> {
                         height: 100,
                         child: Icon(
                           Icons.info,
-                          color: Colors.blue,
+                          color: Colors.green,
+                          size: 70,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    child: InkWell(
+                      splashColor: Colors.green.withAlpha(30),
+                      onTap: () {
+                        Navigator.pushNamed(context, '/konsultasi/add');
+                      },
+                      child: const SizedBox(
+                        width: 150,
+                        height: 100,
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.green,
                           size: 70,
                         ),
                       ),
@@ -107,7 +80,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
