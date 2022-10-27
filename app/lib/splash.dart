@@ -22,7 +22,7 @@ class _SplashState extends State<Splash> {
           ),
           Container(
             child: const Text(
-              'SPC Telur',
+              'EDA',
               style: TextStyle(
                 fontSize: 18,
                 color: Color(0xFF1C6758),

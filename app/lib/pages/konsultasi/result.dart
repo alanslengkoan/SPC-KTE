@@ -1,57 +1,29 @@
-import 'package:SPC_Telur/model/m_kecelakaan_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:convert';
 
-class ChartKecelakaan extends StatefulWidget {
-  const ChartKecelakaan({Key? key, required this.title}) : super(key: key);
+class ResultKonsultasi extends StatefulWidget {
+  const ResultKonsultasi({Key? key, required this.title, this.id}) : super(key: key);
   final String title;
+  final int? id;
 
   @override
-  State<ChartKecelakaan> createState() => _ChartKecelakaanState();
+  State<ResultKonsultasi> createState() => _ChartKecelakaanState();
 }
 
-class _ChartKecelakaanState extends State<ChartKecelakaan> {
-  var urlGet = Uri.parse("https://nearmissbosowa.my.id/api/kecelakaan/chart");
-
-  final List<ListKecelakaanChart> _data = [];
-  final List<charts.Series<ListKecelakaanChart, String>> _chartData = [];
-  var _showChart;
+class _ChartKecelakaanState extends State<ResultKonsultasi> {
+  Map konsultasi = {};
 
   void _getData() async {
+    var urlGet = Uri.parse("http://192.168.1.4/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/result/${widget.id}");
+
     var response = await http.get(urlGet, headers: {"Accept": "application/json"});
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
       setState(() {
-        for (Map i in data) {
-          _data.add(ListKecelakaanChart(i['x'].toString(), i['y'], i['color']));
-        }
-
-        _chartData.add(
-          charts.Series(
-            id: 'Sales',
-            data: _data,
-            domainFn: (ListKecelakaanChart row, _) => row.x,
-            measureFn: (ListKecelakaanChart row, _) => row.y,
-            labelAccessorFn: (ListKecelakaanChart row, _) => '${row.x}: ${row.y} Orang',
-            fillColorFn: (ListKecelakaanChart row, _) => charts.ColorUtil.fromDartColor(
-              Color(int.parse(row.color)),
-            ),
-          ),
-        );
-
-        _showChart = charts.BarChart(
-          _chartData,
-          animate: true,
-          vertical: false,
-          barRendererDecorator: charts.BarLabelDecorator<String>(),
-          domainAxis: const charts.OrdinalAxisSpec(
-            renderSpec: charts.NoneRenderSpec(),
-          ),
-        );
+        konsultasi = data;
       });
     } else {
       throw Exception('Maaf gagal mengambil data!');
@@ -66,6 +38,143 @@ class _ChartKecelakaanState extends State<ChartKecelakaan> {
 
   @override
   Widget build(BuildContext context) {
+    _show() {
+      return ListView(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(25.0),
+                    child: Text(
+                      'Nama',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['konsultasi']['nama'],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(25.0),
+                    child: Text(
+                      'Klasifikasi',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['klasifikasi'],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(25.0),
+                    child: Text(
+                      'Deskripsi',
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      konsultasi['deskripsi'],
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                    child: Text(
+                      'R',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['konsultasi']['r'].toString(),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                    child: Text(
+                      'G',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['konsultasi']['g'].toString(),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                    child: Text(
+                      'B',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['konsultasi']['b'].toString(),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                    child: Text(
+                      'H',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['konsultasi']['h'].toString(),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                    child: Text(
+                      'S',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['konsultasi']['s'].toString(),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                    child: Text(
+                      'V',
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      konsultasi['konsultasi']['v'].toString(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          )
+        ],
+      );
+    }
+
+    _loading() {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -74,16 +183,7 @@ class _ChartKecelakaanState extends State<ChartKecelakaan> {
       ),
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: _showChart ??
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-            )
-          ],
-        ),
+        child: konsultasi.isEmpty ? _loading() : _show(),
       ),
     );
   }

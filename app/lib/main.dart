@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SPC Telur',
+      title: 'EDA',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: const Color(0xFFFFFFFF),
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => const Splash(),
         '/home': (context) => const Home(),
         '/about': (context) => const About(title: 'About'),
-        '/konsultasi/add': (context) => const AddKecelakaan(title: 'Konsultasi'),
-        '/konsultasi/result': (context) => const ChartKecelakaan(title: 'Hasil Konsultasi'),
+        '/konsultasi/add': (context) => const AddKonsultasi(title: 'Konsultasi'),
+        '/konsultasi/result': (context) => const ResultKonsultasi(title: 'Hasil Konsultasi'),
       },
     );
   }

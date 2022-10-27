@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
-          child: Text('SPC Telur'),
+          child: Text('EDA'),
         ),
         backgroundColor: const Color(0xFF1C6758),
       ),

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:SPC_Telur/model/m_kecelakaan.dart';
+import 'package:SPC_Telur/pages/konsultasi/result.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,19 +10,19 @@ import 'dart:convert';
 
 import 'package:intl/intl.dart';
 
-class AddKecelakaan extends StatefulWidget {
-  const AddKecelakaan({Key? key, required this.title}) : super(key: key);
+class AddKonsultasi extends StatefulWidget {
+  const AddKonsultasi({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<AddKecelakaan> createState() => _KecelakaanState();
+  State<AddKonsultasi> createState() => _KecelakaanState();
 }
 
-class _KecelakaanState extends State<AddKecelakaan> {
+class _KecelakaanState extends State<AddKonsultasi> {
   // deklarsi variabel
   final _formKey = GlobalKey<FormState>();
 
-  var urlPost = Uri.parse("https://nearmissbosowa.my.id/api/kecelakaan/add");
+  var urlPost = Uri.parse("http://192.168.1.4/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/save");
   var picker = ImagePicker();
   var data = {};
   var _imageUpload;
@@ -50,58 +50,71 @@ class _KecelakaanState extends State<AddKecelakaan> {
 
   TextEditingController controllerNama = TextEditingController();
 
-  // void addData() {
-  //   String namaFotoFirst = _imageUpload!.path.split("/").last;
-  //   String namaFotoSecond = _fotoSecond!.path.split("/").last;
-  //   String namaVideo = _videoUpload!.path.split("/").last;
+  void addData() {
+    String nameImage = _imageUpload!.path.split("/").last;
+    String imageLoc = base64Encode(_imageUpload!.readAsBytesSync());
 
-  //   String locFotoFirst = base64Encode(_imageUpload!.readAsBytesSync());
-  //   String locFotoSecond = base64Encode(_fotoSecond!.readAsBytesSync());
-  //   String locVideo = base64Encode(_videoUpload!.readAsBytesSync());
+    data = {
+      "nama": controllerNama.text,
+      "image": nameImage,
+      "loc_image": imageLoc,
+    };
 
-  //   data = {
-  //     "pelapor": controllerNama.text,
-  //     "saksi": controllerSaksi.text,
-  //     "uraian": controllerUraian.text,
-  //     "tindakan": controllerTindakan.text,
-  //     "id_kecelakaan_kategori": _idKategoriKecelakaan,
-  //     "tgl_kejadian": _tglKejadian?.toIso8601String(),
-  //     "lokasi_kejadian": controllerLokasiKejadian.text,
-  //     "foto_first": namaFotoFirst,
-  //     "foto_second": namaFotoSecond,
-  //     "video": namaVideo,
-  //     "loc_first": locFotoFirst,
-  //     "loc_second": locFotoSecond,
-  //     "loc_video": locVideo,
-  //   };
+    http.post(urlPost, body: data).then((response) {
+      var tampilkan = json.decode(response.body);
 
-  //   http.post(urlPost, body: data).then((response) {
-  //     var tampilkan = json.decode(response.body);
+      if (tampilkan['status']) {
+        Alert(
+          context: context,
+          type: AlertType.success,
+          title: tampilkan['title'],
+          desc: tampilkan['text'],
+          buttons: [
+            DialogButton(
+              child: Text(
+                tampilkan['button'],
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ResultKonsultasi(
+                              title: "Hasil Konsultasi",
+                              id: tampilkan['id'],
+                            )),
+                    (route) => false);
+              },
+              width: 120,
+            )
+          ],
+        ).show();
+      } else {
+        Alert(
+          context: context,
+          type: AlertType.error,
+          title: tampilkan['title'],
+          desc: tampilkan['text'],
+          buttons: [
+            DialogButton(
+              child: Text(
+                tampilkan['button'],
+                style: const TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              width: 120,
+            )
+          ],
+        ).show();
+      }
 
-  //     Alert(
-  //       context: context,
-  //       type: AlertType.success,
-  //       title: tampilkan['title'],
-  //       desc: tampilkan['text'],
-  //       buttons: [
-  //         DialogButton(
-  //           child: Text(
-  //             tampilkan['button'],
-  //             style: const TextStyle(color: Colors.white, fontSize: 20),
-  //           ),
-  //           onPressed: () {
-  //             Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
-  //           },
-  //           width: 120,
-  //         )
-  //       ],
-  //     ).show();
-
-  //     setState(() {
-  //       _klik = true;
-  //     });
-  //   });
-  // }
+      setState(() {
+        _klik = true;
+      });
+    });
+  }
 
   String? _validasiNama(String? value) {
     if (value!.isEmpty) {
@@ -114,7 +127,7 @@ class _KecelakaanState extends State<AddKecelakaan> {
   void _validasiInput() {
     if (_formKey.currentState!.validate() && _imageUpload != null) {
       _formKey.currentState!.save();
-      // addData();
+      addData();
       setState(() {
         _klik = false;
       });

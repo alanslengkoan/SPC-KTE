@@ -27,6 +27,14 @@
     <div class="main-body">
         <div class="page-wrapper">
             <div class="page-body">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Selamat Datang</h3>
+                    </div>
+                    <div class="card-block table-border-style">
+                        Eggs Detection App (EDA) merupakan sebuah sistem yang digunakan untuk mengetahui telur yang berkualitas dan kelayakan untuk di konsumsi karna kita tahu bahwa telur memiliki protein yang sangat tinggi, agar masyarakat dan peternak telur dapat memperjual belikan dan membedakan telur yang memiliki kualitas bagus dan tidak bagus.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
