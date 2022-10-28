@@ -49,13 +49,57 @@
                     searchable: false,
                     render: function(data, type, full, meta) {
                         return `
-                        <div class="button-icon-btn button-icon-btn-cl">
-                            <a href="<?= admin_url() ?>konsultasi/results/` + full.id_konsultasi + `" target="_blank" class="btn btn-info btn-sm waves-effect"><i class="fa fa-info-circle"></i>&nbsp;Detail</a>
-                        </div>
-                    `;
+                            <div class="button-icon-btn button-icon-btn-cl">
+                                <a href="<?= admin_url() ?>konsultasi/results/` + full.id_konsultasi + `" target="_blank" class="btn btn-info btn-sm waves-effect"><i class="fa fa-info-circle"></i>&nbsp;Detail</a>&nbsp;
+                                <button type="button" id="btn-del" data-id="` + full.id_konsultasi + `" class="btn btn-warning btn-sm waves-effect"><i class="fa fa-trash"></i>&nbsp;Hapus</button>
+                            </div>
+                        `;
                     },
                 },
             ],
+        });
+    }();
+
+    // untuk hapus data
+    var untukHapusData = function() {
+        $(document).on('click', '#btn-del', function() {
+            var ini = $(this);
+
+            swal({
+                title: "Apakah Anda yakin ingin menghapusnya?",
+                text: "Data yang telah dihapus tidak dapat dikembalikan!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((del) => {
+                if (del) {
+                    $.ajax({
+                        type: "post",
+                        url: "<?= admin_url() ?>konsultasi/process_del",
+                        dataType: 'json',
+                        data: {
+                            id: ini.data('id'),
+                            '<?= $this->security->get_csrf_token_name() ?>': '<?= $this->security->get_csrf_hash() ?>',
+                        },
+                        beforeSend: function() {
+                            ini.attr('disabled', 'disabled');
+                            ini.html('<i class="fa fa-spinner"></i>&nbsp;Menunggu...');
+                        },
+                        success: function(response) {
+                            swal({
+                                title: response.title,
+                                text: response.text,
+                                icon: response.type,
+                                button: response.button,
+                            }).then((value) => {
+                                location.reload();
+                            });
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            });
         });
     }();
 </script>

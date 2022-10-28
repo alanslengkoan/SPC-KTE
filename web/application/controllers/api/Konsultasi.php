@@ -86,4 +86,59 @@ class Konsultasi extends MY_Controller
 
         $this->_response($data);
     }
+
+    public function img_one($id)
+    {
+        $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
+
+        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        if (getExtension($konsultasi['image']) === 'png') {
+            header("Content-Type: image/png");
+        } else {
+            header("Content-Type: image/jpeg");
+        }
+        echo $imagick->getImageBlob();
+    }
+
+    public function img_two($id)
+    {
+        $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
+
+        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        $imagick->setImageType(2);
+        if (getExtension($konsultasi['image']) === 'png') {
+            header("Content-Type: image/png");
+        } else {
+            header("Content-Type: image/jpeg");
+        }
+        echo $imagick->getImageBlob();
+    }
+
+    public function img_three($id)
+    {
+        $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
+
+        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        $imagick->quantizeImage(5, Imagick::COLORSPACE_GRAY, 1, TRUE, FALSE);
+        if (getExtension($konsultasi['image']) === 'png') {
+            header("Content-Type: image/png");
+        } else {
+            header("Content-Type: image/jpeg");
+        }
+        echo $imagick->getImageBlob();
+    }
+
+    public function img_four($id)
+    {
+        $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
+
+        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        $imagick->setImageType(1);
+        if (getExtension($konsultasi['image']) === 'png') {
+            header("Content-Type: image/png");
+        } else {
+            header("Content-Type: image/jpeg");
+        }
+        echo $imagick->getImageBlob();
+    }
 }

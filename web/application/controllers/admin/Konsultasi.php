@@ -57,6 +57,28 @@ class Konsultasi extends MY_Controller
         $this->_response_message($response);
     }
 
+    // untuk proses hapus data
+    public function process_del()
+    {
+        $post = $this->input->post(NULL, TRUE);
+
+        $get = $this->crud->gda('konsultasi', ['id_konsultasi' => $post['id']]);
+
+        $this->db->trans_start();
+
+        del_picture($get['image']);
+
+        $this->crud->d('konsultasi', $post['id'], 'id_konsultasi');
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === FALSE) {
+            $response = ['title' => 'Gagal!', 'text' => 'Gagal Hapus!', 'type' => 'error', 'button' => 'Ok!'];
+        } else {
+            $response = ['title' => 'Berhasil!', 'text' => 'Berhasil Hapus!', 'type' => 'success', 'button' => 'Ok!'];
+        }
+
+        $this->_response_message($response);
+    }
+
     // untuk proses algoritma
     public function results($id)
     {
