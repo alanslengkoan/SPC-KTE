@@ -1,8 +1,8 @@
-import 'package:SPC_Telur/pages/about.dart';
-import 'package:SPC_Telur/pages/home.dart';
-import 'package:SPC_Telur/pages/konsultasi/add.dart';
-import 'package:SPC_Telur/pages/konsultasi/result.dart';
-import 'package:SPC_Telur/splash.dart';
+import 'package:EDA/pages/about.dart';
+import 'package:EDA/pages/home.dart';
+import 'package:EDA/pages/konsultasi/add.dart';
+import 'package:EDA/pages/konsultasi/result.dart';
+import 'package:EDA/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {

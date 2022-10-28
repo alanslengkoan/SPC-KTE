@@ -13,9 +13,17 @@ class ResultKonsultasi extends StatefulWidget {
 
 class _ChartKecelakaanState extends State<ResultKonsultasi> {
   Map konsultasi = {};
+  List<String> imgList = [];
 
   void _getData() async {
-    var urlGet = Uri.parse("http://192.168.1.4/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/result/${widget.id}");
+    var urlGet = Uri.parse("http://192.168.1.6/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/result/${widget.id}");
+
+    imgList = [
+      'http://192.168.1.6/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_one/${widget.id}',
+      'http://192.168.1.6/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_two/${widget.id}',
+      'http://192.168.1.6/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_three/${widget.id}',
+      'http://192.168.1.6/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_four/${widget.id}',
+    ];
 
     var response = await http.get(urlGet, headers: {"Accept": "application/json"});
 
@@ -39,133 +47,143 @@ class _ChartKecelakaanState extends State<ResultKonsultasi> {
   @override
   Widget build(BuildContext context) {
     _show() {
-      return ListView(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(25.0),
-                    child: Text(
-                      'Nama',
-                    ),
+      return SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(25.0),
+                  child: Text(
+                    'Nama :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['konsultasi']['nama'],
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['konsultasi']['nama'],
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(25.0),
-                    child: Text(
-                      'Klasifikasi',
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(25.0),
+                  child: Text(
+                    'Klasifikasi :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['klasifikasi'],
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['klasifikasi'],
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.all(25.0),
-                    child: Text(
-                      'Deskripsi',
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(25.0),
+                  child: Text(
+                    'Deskripsi :',
                   ),
-                  Expanded(
-                    child: Text(
-                      konsultasi['deskripsi'],
-                      textAlign: TextAlign.justify,
-                    ),
+                ),
+                Expanded(
+                  child: Text(
+                    konsultasi['deskripsi'],
+                    textAlign: TextAlign.justify,
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
-                    child: Text(
-                      'R',
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  child: Text(
+                    'R :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['konsultasi']['r'].toString(),
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['konsultasi']['r'].toString(),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
-                    child: Text(
-                      'G',
-                    ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  child: Text(
+                    'G :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['konsultasi']['g'].toString(),
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['konsultasi']['g'].toString(),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
-                    child: Text(
-                      'B',
-                    ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  child: Text(
+                    'B :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['konsultasi']['b'].toString(),
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['konsultasi']['b'].toString(),
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
-                    child: Text(
-                      'H',
-                    ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  child: Text(
+                    'H :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['konsultasi']['h'].toString(),
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['konsultasi']['h'].toString(),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
-                    child: Text(
-                      'S',
-                    ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  child: Text(
+                    'S :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['konsultasi']['s'].toString(),
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['konsultasi']['s'].toString(),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
-                    child: Text(
-                      'V',
-                    ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  child: Text(
+                    'V :',
                   ),
-                  Container(
-                    child: Text(
-                      konsultasi['konsultasi']['v'].toString(),
-                    ),
+                ),
+                Container(
+                  child: Text(
+                    konsultasi['konsultasi']['v'].toString(),
                   ),
-                ],
-              ),
-            ],
-          )
-        ],
+                ),
+              ],
+            ),
+            ListView(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: imgList
+                  .map(
+                    (imgUrl) => Container(
+                      margin: const EdgeInsets.only(top: 10, bottom: 10),
+                      child: Image.network(imgUrl, fit: BoxFit.cover),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+        ),
       );
     }
 
@@ -180,6 +198,18 @@ class _ChartKecelakaanState extends State<ResultKonsultasi> {
         centerTitle: true,
         title: Text(widget.title),
         backgroundColor: const Color(0xFF1C6758),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 5.0),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              size: 26.0,
+            ),
+          ),
+        ),
       ),
       body: Container(
         margin: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),

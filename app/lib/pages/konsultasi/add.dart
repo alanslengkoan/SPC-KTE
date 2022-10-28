@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:SPC_Telur/pages/konsultasi/result.dart';
+import 'package:EDA/pages/konsultasi/result.dart';
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,10 +19,9 @@ class AddKonsultasi extends StatefulWidget {
 }
 
 class _KecelakaanState extends State<AddKonsultasi> {
-  // deklarsi variabel
   final _formKey = GlobalKey<FormState>();
 
-  var urlPost = Uri.parse("http://192.168.1.4/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/save");
+  var urlPost = Uri.parse("http://192.168.1.6/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/save");
   var picker = ImagePicker();
   var data = {};
   var _imageUpload;
@@ -77,13 +76,15 @@ class _KecelakaanState extends State<AddKonsultasi> {
               ),
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ResultKonsultasi(
-                              title: "Hasil Konsultasi",
-                              id: tampilkan['id'],
-                            )),
-                    (route) => false);
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultKonsultasi(
+                      title: "Hasil Konsultasi",
+                      id: tampilkan['id'],
+                    ),
+                  ),
+                  (route) => false,
+                );
               },
               width: 120,
             )
@@ -167,39 +168,52 @@ class _KecelakaanState extends State<AddKonsultasi> {
                       padding: const EdgeInsets.only(top: 10),
                       child: Column(
                         children: <Widget>[
-                          ElevatedButton(
-                            onPressed: _uploadImage,
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const <Widget>[Text("Upload Gambar", style: TextStyle(color: Colors.black))],
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                  ),
+                                  onPressed: _uploadImage,
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: const <Widget>[Text("Upload Gambar", style: TextStyle(color: Colors.white))],
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: _takeImage,
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const <Widget>[Text("Ambil Gambar", style: TextStyle(color: Colors.black))],
+                              Container(
+                                padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                                  ),
+                                  onPressed: _takeImage,
+                                  child: Container(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: const <Widget>[Text("Ambil Gambar", style: TextStyle(color: Colors.white))],
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                           Container(
-                            width: 200,
-                            height: 200,
+                            margin: EdgeInsets.only(top: 5),
+                            width: MediaQuery.of(context).size.width,
+                            height: 400,
                             decoration: const BoxDecoration(color: Colors.grey),
                             child: _imageUpload != null
                                 ? Image.file(
                                     _imageUpload,
-                                    width: 200.0,
-                                    height: 200.0,
                                     fit: BoxFit.fitHeight,
                                   )
                                 : Container(
                                     decoration: const BoxDecoration(color: Colors.grey),
-                                    width: 200,
-                                    height: 200,
                                     child: Icon(
                                       Icons.camera_alt,
                                       color: Colors.grey[800],
