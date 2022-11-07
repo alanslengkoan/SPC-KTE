@@ -140,7 +140,13 @@ class Konsultasi extends MY_Controller
     {
         $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
 
-        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        if (PHP_OS === 'WINNT') {
+            $url = getcwd() . '/' . upload_path('gambar') . $konsultasi['image'];
+        } else {
+            $url = upload_url('gambar') . $konsultasi['image'];
+        }
+
+        $imagick = new Imagick($url);
         if (getExtension($konsultasi['image']) === 'png') {
             header("Content-Type: image/png");
         } else {
@@ -153,7 +159,13 @@ class Konsultasi extends MY_Controller
     {
         $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
 
-        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        if (PHP_OS === 'WINNT') {
+            $url = getcwd() . '/' . upload_path('gambar') . $konsultasi['image'];
+        } else {
+            $url = upload_url('gambar') . $konsultasi['image'];
+        }
+
+        $imagick = new Imagick($url);
         $imagick->setImageType(2);
         if (getExtension($konsultasi['image']) === 'png') {
             header("Content-Type: image/png");
@@ -167,7 +179,13 @@ class Konsultasi extends MY_Controller
     {
         $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
 
-        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        if (PHP_OS === 'WINNT') {
+            $url = getcwd() . '/' . upload_path('gambar') . $konsultasi['image'];
+        } else {
+            $url = upload_url('gambar') . $konsultasi['image'];
+        }
+
+        $imagick = new Imagick($url);
         $imagick->quantizeImage(5, Imagick::COLORSPACE_GRAY, 1, TRUE, FALSE);
         if (getExtension($konsultasi['image']) === 'png') {
             header("Content-Type: image/png");
@@ -181,7 +199,13 @@ class Konsultasi extends MY_Controller
     {
         $konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);
 
-        $imagick = new Imagick(upload_url('gambar') . $konsultasi['image']);
+        if (PHP_OS === 'WINNT') {
+            $url = getcwd() . '/' . upload_path('gambar') . $konsultasi['image'];
+        } else {
+            $url = upload_url('gambar') . $konsultasi['image'];
+        }
+
+        $imagick = new Imagick($url);
         $imagick->setImageType(1);
         if (getExtension($konsultasi['image']) === 'png') {
             header("Content-Type: image/png");

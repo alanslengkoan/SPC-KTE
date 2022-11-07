@@ -120,16 +120,16 @@
                     <div class="card-block table-border-style">
                         <div class="row">
                             <div class="col-lg-4 pb-4 text-center">
-                                <img src="<?= admin_url() ?>/konsultasi/img_one/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                                <img src="<?= admin_url() ?>konsultasi/img_one/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
                             </div>
                             <div class="col-lg-4 pb-4 text-center">
-                                <img src="<?= admin_url() ?>/konsultasi/img_two/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                                <img src="<?= admin_url() ?>konsultasi/img_two/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
                             </div>
                             <div class="col-lg-4 pb-4 text-center">
-                                <img src="<?= admin_url() ?>/konsultasi/img_three/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                                <img src="<?= admin_url() ?>konsultasi/img_three/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
                             </div>
                             <div class="col-lg-4 pb-4 text-center">
-                                <img src="<?= admin_url() ?>/konsultasi/img_four/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
+                                <img src="<?= admin_url() ?>konsultasi/img_four/<?= $get_konsultasi['id_konsultasi'] ?>" class="img-fluid" />
                             </div>
                         </div>
                         <table class="table table-striped table-bordered" id="tabel-hasil" style="width: 100%;">
