@@ -1,8 +1,8 @@
-import 'package:EDA/pages/about.dart';
-import 'package:EDA/pages/home.dart';
-import 'package:EDA/pages/konsultasi/add.dart';
-import 'package:EDA/pages/konsultasi/result.dart';
-import 'package:EDA/splash.dart';
+import 'package:egg_detection/pages/about.dart';
+import 'package:egg_detection/pages/home.dart';
+import 'package:egg_detection/pages/konsultasi/add.dart';
+import 'package:egg_detection/pages/konsultasi/result.dart';
+import 'package:egg_detection/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {

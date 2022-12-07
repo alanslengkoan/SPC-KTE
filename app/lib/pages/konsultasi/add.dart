@@ -1,14 +1,13 @@
 import 'dart:io';
 
-import 'package:EDA/pages/konsultasi/result.dart';
+import 'package:egg_detection/pages/konsultasi/result.dart';
 import 'package:flutter/material.dart';
-import 'package:date_field/date_field.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
+import 'package:tflite/tflite.dart';
 
 class AddKonsultasi extends StatefulWidget {
   const AddKonsultasi({Key? key, required this.title}) : super(key: key);
@@ -21,29 +20,48 @@ class AddKonsultasi extends StatefulWidget {
 class _KecelakaanState extends State<AddKonsultasi> {
   final _formKey = GlobalKey<FormState>();
 
-  var urlPost = Uri.parse("http://192.168.1.6/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/save");
+  var urlPost = Uri.parse("http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/save");
   var picker = ImagePicker();
   var data = {};
   var _imageUpload;
+  final listOutputs = [];
   var _validasiImageUpload = const Text('Belum ada gambar yang diambil!');
 
   bool _klik = true;
 
-  void _uploadImage() async {
-    var imageUpload = await picker.pickImage(source: ImageSource.gallery);
+  // untuk load model
+  Future loadModel() async {
+    await Tflite.loadModel(
+      model: 'assets/tflite/model_unquant.tflite',
+      labels: 'assets/tflite/labels.txt',
+    );
+  }
+
+  // untuk upload atau ambil gambar
+  void _uploadOrTakeImage(ImageSource imageSource) async {
+    var imageUpload = await picker.pickImage(source: imageSource);
 
     setState(() {
       _imageUpload = File(imageUpload!.path);
       _validasiImageUpload = const Text('');
     });
+
+    processImage(_imageUpload);
   }
 
-  void _takeImage() async {
-    var imageUpload = await picker.pickImage(source: ImageSource.camera);
-
+  // untuk memproses gambar
+  void processImage(File image) async {
+    var output = await Tflite.runModelOnImage(
+      path: image.path,
+      numResults: 2,
+      threshold: 0.5,
+      imageMean: 127.5,
+      imageStd: 127.5,
+    );
     setState(() {
-      _imageUpload = File(imageUpload!.path);
-      _validasiImageUpload = const Text('');
+      listOutputs.clear();
+      listOutputs.addAll(output!);
+      debugPrint('outputs: $listOutputs');
     });
   }
 
@@ -176,7 +194,7 @@ class _KecelakaanState extends State<AddKonsultasi> {
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                   ),
-                                  onPressed: _uploadImage,
+                                  onPressed: () => _uploadOrTakeImage(ImageSource.gallery),
                                   child: Container(
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -191,7 +209,7 @@ class _KecelakaanState extends State<AddKonsultasi> {
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                                   ),
-                                  onPressed: _takeImage,
+                                  onPressed: () => _uploadOrTakeImage(ImageSource.camera),
                                   child: Container(
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -202,6 +220,15 @@ class _KecelakaanState extends State<AddKonsultasi> {
                               ),
                             ],
                           ),
+                          listOutputs == null || listOutputs.isEmpty
+                              ? Text('Silahkan upload atau ambil gambar terlebih dahulu!')
+                              : Container(
+                                  child: Column(
+                                  children: [
+                                    Text('${listOutputs[0]['label']}'.replaceAll(RegExp(r'[0-9]'), '').toUpperCase()),
+                                    Text('${listOutputs[0]['confidence']}'),
+                                  ],
+                                )),
                           Container(
                             margin: EdgeInsets.only(top: 5),
                             width: MediaQuery.of(context).size.width,
@@ -222,7 +249,7 @@ class _KecelakaanState extends State<AddKonsultasi> {
                           ),
                           Container(
                             child: _imageUpload == null ? _validasiImageUpload : _validasiImageUpload,
-                          )
+                          ),
                         ],
                       ),
                     ),
