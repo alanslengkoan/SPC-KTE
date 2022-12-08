@@ -44,6 +44,15 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
     }
   }
 
+  TextEditingController controllerNama = TextEditingController();
+
+  String? _validasiNama(String? value) {
+    if (value!.isEmpty) {
+      return 'Nama Pelapor, Wajib diisi!';
+    }
+    return null;
+  }
+
   // untuk upload atau ambil gambar
   void _uploadOrTakeImage(ImageSource imageSource) async {
     var imageUpload = await picker.pickImage(source: imageSource);
@@ -73,8 +82,6 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
       _confidence = listOutputs[0]['confidence'].toStringAsFixed(2);
     });
   }
-
-  TextEditingController controllerNama = TextEditingController();
 
   void addData() {
     String nameImage = _imageUpload!.path.split("/").last;
@@ -144,14 +151,6 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
     });
   }
 
-  String? _validasiNama(String? value) {
-    if (value!.isEmpty) {
-      return 'Nama Pelapor, Wajib diisi!';
-    }
-    return null;
-  }
-
-  @override
   void _validasiInput() {
     if (_formKey.currentState!.validate() && _imageUpload != null) {
       _formKey.currentState!.save();
@@ -232,7 +231,7 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                               ),
                             ],
                           ),
-                          listOutputs == null || listOutputs.isEmpty
+                          listOutputs.isEmpty
                               ? Text('Silahkan upload atau ambil gambar terlebih dahulu!')
                               : Container(
                                   child: Column(
