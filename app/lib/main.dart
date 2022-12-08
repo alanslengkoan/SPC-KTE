@@ -17,9 +17,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'EDA',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: const Color(0xFFFFFFFF),
-      ),
       initialRoute: '/',
       routes: {
         '/': (context) => const Splash(),

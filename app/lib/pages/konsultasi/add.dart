@@ -4,20 +4,19 @@ import 'package:egg_detection/pages/konsultasi/result.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:tflite/tflite.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:tflite/tflite.dart';
 
 class AddKonsultasi extends StatefulWidget {
   const AddKonsultasi({Key? key, required this.title}) : super(key: key);
   final String title;
 
   @override
-  State<AddKonsultasi> createState() => _KecelakaanState();
+  State<AddKonsultasi> createState() => _AddKonsultasiState();
 }
 
-class _KecelakaanState extends State<AddKonsultasi> {
+class _AddKonsultasiState extends State<AddKonsultasi> {
   final _formKey = GlobalKey<FormState>();
 
   var urlPost = Uri.parse("http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/save");
@@ -26,15 +25,23 @@ class _KecelakaanState extends State<AddKonsultasi> {
   var _imageUpload;
   final listOutputs = [];
   var _validasiImageUpload = const Text('Belum ada gambar yang diambil!');
+  var tfResponse;
+  var _label;
+  var _confidence;
 
   bool _klik = true;
 
   // untuk load model
   Future loadModel() async {
-    await Tflite.loadModel(
-      model: 'assets/tflite/model_unquant.tflite',
-      labels: 'assets/tflite/labels.txt',
-    );
+    try {
+      tfResponse = await Tflite.loadModel(
+        model: 'assets/tflite/model_unquant.tflite',
+        labels: 'assets/tflite/labels.txt',
+      );
+      print('Berhasil load model: $tfResponse');
+    } catch (e) {
+      print('Gagal load model: $e');
+    }
   }
 
   // untuk upload atau ambil gambar
@@ -61,7 +68,9 @@ class _KecelakaanState extends State<AddKonsultasi> {
     setState(() {
       listOutputs.clear();
       listOutputs.addAll(output!);
-      debugPrint('outputs: $listOutputs');
+
+      _label = listOutputs[0]['label'].toString().replaceAll(RegExp(r'[0-9]'), '').toUpperCase();
+      _confidence = listOutputs[0]['confidence'].toStringAsFixed(2);
     });
   }
 
@@ -159,6 +168,9 @@ class _KecelakaanState extends State<AddKonsultasi> {
 
   @override
   void initState() {
+    loadModel().then((value) {
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -225,8 +237,8 @@ class _KecelakaanState extends State<AddKonsultasi> {
                               : Container(
                                   child: Column(
                                   children: [
-                                    Text('${listOutputs[0]['label']}'.replaceAll(RegExp(r'[0-9]'), '').toUpperCase()),
-                                    Text('${listOutputs[0]['confidence']}'),
+                                    Text(_label),
+                                    Text(_confidence),
                                   ],
                                 )),
                           Container(

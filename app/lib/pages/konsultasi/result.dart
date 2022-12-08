@@ -8,10 +8,10 @@ class ResultKonsultasi extends StatefulWidget {
   final int? id;
 
   @override
-  State<ResultKonsultasi> createState() => _ChartKecelakaanState();
+  State<ResultKonsultasi> createState() => _ResultKonsultasiState();
 }
 
-class _ChartKecelakaanState extends State<ResultKonsultasi> {
+class _ResultKonsultasiState extends State<ResultKonsultasi> {
   Map konsultasi = {};
   List<String> imgList = [];
 
