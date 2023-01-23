@@ -19,7 +19,7 @@ class AddKonsultasi extends StatefulWidget {
 class _AddKonsultasiState extends State<AddKonsultasi> {
   final _formKey = GlobalKey<FormState>();
 
-  var urlPost = Uri.parse("http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/save");
+  var urlPost = Uri.parse("http://192.168.43.113/skripsi/web/api/konsultasi/save");
   var picker = ImagePicker();
   var data = {};
   var _imageUpload;

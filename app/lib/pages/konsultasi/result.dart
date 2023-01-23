@@ -16,13 +16,13 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
   List<String> imgList = [];
 
   void _getData() async {
-    var urlGet = Uri.parse("http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/result/${widget.id}");
+    var urlGet = Uri.parse("http://192.168.43.113/skripsi/web/api/konsultasi/result/${widget.id}");
 
     imgList = [
-      'http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_one/${widget.id}',
-      'http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_two/${widget.id}',
-      'http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_three/${widget.id}',
-      'http://192.168.1.5/skripsi/spc/SPC-Kualitas-Telur/web/api/konsultasi/img_four/${widget.id}',
+      'http://192.168.43.113/skripsi/web/api/konsultasi/img_one/${widget.id}',
+      'http://192.168.43.113/skripsi/web/api/konsultasi/img_two/${widget.id}',
+      'http://192.168.43.113/skripsi/web/api/konsultasi/img_three/${widget.id}',
+      'http://192.168.43.113/skripsi/web/api/konsultasi/img_four/${widget.id}',
     ];
 
     var response = await http.get(urlGet, headers: {"Accept": "application/json"});
