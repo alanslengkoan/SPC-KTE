@@ -1,9 +1,11 @@
+import 'package:egg_detection/networks/api.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ResultKonsultasi extends StatefulWidget {
-  const ResultKonsultasi({Key? key, required this.title, this.id}) : super(key: key);
+  const ResultKonsultasi({Key? key, required this.title, this.id})
+      : super(key: key);
+
   final String title;
   final int? id;
 
@@ -15,18 +17,17 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
   Map konsultasi = {};
   List<String> imgList = [];
 
-  void _getData() async {
-    var urlGet = Uri.parse("http://192.168.43.113/skripsi/web/api/konsultasi/result/${widget.id}");
-
+  _getData() async {
     imgList = [
-      'http://192.168.43.113/skripsi/web/api/konsultasi/img_one/${widget.id}',
-      'http://192.168.43.113/skripsi/web/api/konsultasi/img_two/${widget.id}',
-      'http://192.168.43.113/skripsi/web/api/konsultasi/img_three/${widget.id}',
-      'http://192.168.43.113/skripsi/web/api/konsultasi/img_four/${widget.id}',
+      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_one/${widget.id}',
+      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_two/${widget.id}',
+      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_three/${widget.id}',
+      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_four/${widget.id}',
     ];
 
-    var response = await http.get(urlGet, headers: {"Accept": "application/json"});
-
+    var response = await Network().getKonsultasiResult(widget.id.toString());
+    var body = json.decode(response.body);
+    print(body);
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
 
@@ -99,7 +100,8 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
             Row(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  margin:
+                      EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
                   child: Text(
                     'R :',
                   ),
@@ -110,7 +112,8 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  margin:
+                      EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
                   child: Text(
                     'G :',
                   ),
@@ -121,7 +124,8 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  margin:
+                      EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
                   child: Text(
                     'B :',
                   ),
@@ -136,7 +140,8 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
             Row(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  margin:
+                      EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
                   child: Text(
                     'H :',
                   ),
@@ -147,7 +152,8 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  margin:
+                      EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
                   child: Text(
                     'S :',
                   ),
@@ -158,7 +164,8 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
+                  margin:
+                      EdgeInsets.only(left: 25, right: 10, top: 25, bottom: 25),
                   child: Text(
                     'V :',
                   ),
@@ -202,7 +209,8 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
           padding: const EdgeInsets.only(left: 5.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/home', (Route<dynamic> route) => false);
             },
             child: const Icon(
               Icons.arrow_back,

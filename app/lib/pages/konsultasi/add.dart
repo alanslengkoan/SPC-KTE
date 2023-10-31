@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:egg_detection/networks/api.dart';
 import 'package:egg_detection/pages/konsultasi/result.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tflite/tflite.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AddKonsultasi extends StatefulWidget {
@@ -19,9 +20,7 @@ class AddKonsultasi extends StatefulWidget {
 class _AddKonsultasiState extends State<AddKonsultasi> {
   final _formKey = GlobalKey<FormState>();
 
-  var urlPost = Uri.parse("http://192.168.43.113/skripsi/web/api/konsultasi/save");
   var picker = ImagePicker();
-  var data = {};
   var _imageUpload;
   final listOutputs = [];
   var _validasiImageUpload = const Text('Belum ada gambar yang diambil!');
@@ -78,34 +77,40 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
       listOutputs.clear();
       listOutputs.addAll(output!);
 
-      _label = listOutputs[0]['label'].toString().replaceAll(RegExp(r'[0-9]'), '').toUpperCase();
+      _label = listOutputs[0]['label']
+          .toString()
+          .replaceAll(RegExp(r'[0-9]'), '')
+          .toUpperCase();
       _confidence = listOutputs[0]['confidence'].toStringAsFixed(2);
     });
   }
 
-  void addData() {
+  _addData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
     String nameImage = _imageUpload!.path.split("/").last;
     String imageLoc = base64Encode(_imageUpload!.readAsBytesSync());
 
-    data = {
+    var data = {
+      "id_users": preferences.getString('id_users'),
       "nama": controllerNama.text,
       "image": nameImage,
       "loc_image": imageLoc,
     };
 
-    http.post(urlPost, body: data).then((response) {
-      var tampilkan = json.decode(response.body);
-
-      if (tampilkan['status']) {
+    var response = await Network().addKonsultasi(data);
+    var body = json.decode(response.body);
+    print(body);
+    if (response.statusCode == 200) {
+      if (body['status']) {
         Alert(
           context: context,
           type: AlertType.success,
-          title: tampilkan['title'],
-          desc: tampilkan['text'],
+          title: body['title'],
+          desc: body['text'],
           buttons: [
             DialogButton(
               child: Text(
-                tampilkan['button'],
+                body['button'],
                 style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () {
@@ -114,7 +119,7 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                   MaterialPageRoute(
                     builder: (context) => ResultKonsultasi(
                       title: "Hasil Konsultasi",
-                      id: tampilkan['id'],
+                      id: body['id'],
                     ),
                   ),
                   (route) => false,
@@ -128,12 +133,12 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
         Alert(
           context: context,
           type: AlertType.error,
-          title: tampilkan['title'],
-          desc: tampilkan['text'],
+          title: body['title'],
+          desc: body['text'],
           buttons: [
             DialogButton(
               child: Text(
-                tampilkan['button'],
+                body['button'],
                 style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () {
@@ -144,23 +149,20 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
           ],
         ).show();
       }
-
-      setState(() {
-        _klik = true;
-      });
-    });
+    }
   }
 
   void _validasiInput() {
     if (_formKey.currentState!.validate() && _imageUpload != null) {
       _formKey.currentState!.save();
-      addData();
+      _addData();
       setState(() {
         _klik = false;
       });
     } else {
       setState(() {
-        _validasiImageUpload = const Text('Belum ada gambar yang diambil!', style: TextStyle(color: Colors.red));
+        _validasiImageUpload = const Text('Belum ada gambar yang diambil!',
+            style: TextStyle(color: Colors.red));
       });
     }
   }
@@ -200,31 +202,49 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                           Row(
                             children: <Widget>[
                               Container(
-                                padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                                padding: const EdgeInsets.only(
+                                    right: 10, top: 10, bottom: 10),
                                 child: ElevatedButton(
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.blue),
                                   ),
-                                  onPressed: () => _uploadOrTakeImage(ImageSource.gallery),
+                                  onPressed: () =>
+                                      _uploadOrTakeImage(ImageSource.gallery),
                                   child: Container(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: const <Widget>[Text("Upload Gambar", style: TextStyle(color: Colors.white))],
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const <Widget>[
+                                        Text("Upload Gambar",
+                                            style:
+                                                TextStyle(color: Colors.white))
+                                      ],
                                     ),
                                   ),
                                 ),
                               ),
                               Container(
-                                padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                                padding: const EdgeInsets.only(
+                                    right: 10, top: 10, bottom: 10),
                                 child: ElevatedButton(
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.green),
                                   ),
-                                  onPressed: () => _uploadOrTakeImage(ImageSource.camera),
+                                  onPressed: () =>
+                                      _uploadOrTakeImage(ImageSource.camera),
                                   child: Container(
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: const <Widget>[Text("Ambil Gambar", style: TextStyle(color: Colors.white))],
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const <Widget>[
+                                        Text("Ambil Gambar",
+                                            style:
+                                                TextStyle(color: Colors.white))
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -232,7 +252,8 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                             ],
                           ),
                           listOutputs.isEmpty
-                              ? Text('Silahkan upload atau ambil gambar terlebih dahulu!')
+                              ? Text(
+                                  'Silahkan upload atau ambil gambar terlebih dahulu!')
                               : Container(
                                   child: Column(
                                   children: [
@@ -251,7 +272,8 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                                     fit: BoxFit.fitHeight,
                                   )
                                 : Container(
-                                    decoration: const BoxDecoration(color: Colors.grey),
+                                    decoration:
+                                        const BoxDecoration(color: Colors.grey),
                                     child: Icon(
                                       Icons.camera_alt,
                                       color: Colors.grey[800],
@@ -259,7 +281,9 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                                   ),
                           ),
                           Container(
-                            child: _imageUpload == null ? _validasiImageUpload : _validasiImageUpload,
+                            child: _imageUpload == null
+                                ? _validasiImageUpload
+                                : _validasiImageUpload,
                           ),
                         ],
                       ),

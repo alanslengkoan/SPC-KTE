@@ -10,6 +10,24 @@ class Konsultasi extends MY_Controller
         $this->load->model('m_konsultasi');
     }
 
+    public function index()
+    {
+        $id   = $this->uri->segment(3);
+        $data = $this->m_konsultasi->get_all_user($id);
+        $result = [];
+
+        foreach ($data->result() as $key => $value) {
+            $result[] = [
+                'id_konsultasi' => $value->id_konsultasi,
+                'id_users'      => $value->id_users,
+                'nama'          => $value->nama,
+                'image'         => $value->image,
+            ];
+        }
+
+        $this->_response($result);
+    }
+
     // untuk simpan
     public function save()
     {
@@ -20,8 +38,9 @@ class Konsultasi extends MY_Controller
         file_put_contents(upload_path('gambar') . '/' . $post['image'], $parseImage);
 
         $data = [
-            'nama'  => $post['nama'],
-            'image' => $post['image'],
+            'id_users' => $post['id_users'],
+            'nama'     => $post['nama'],
+            'image'    => $post['image'],
         ];
 
         $this->db->trans_start();

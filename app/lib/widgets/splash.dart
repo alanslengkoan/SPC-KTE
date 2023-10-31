@@ -1,5 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:egg_detection/pages/home.dart';
+import 'package:egg_detection/auth/sign_in/view.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatefulWidget {
@@ -41,7 +41,7 @@ class _SplashState extends State<Splash> {
       duration: 3000,
       splashTransition: SplashTransition.fadeTransition,
       backgroundColor: Colors.white,
-      nextScreen: const Home(),
+      nextScreen: SignIn(),
     );
   }
 }
