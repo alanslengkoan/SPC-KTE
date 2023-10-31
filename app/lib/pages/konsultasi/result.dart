@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 class ResultKonsultasi extends StatefulWidget {
-  const ResultKonsultasi({Key? key, required this.title, this.id})
+  const ResultKonsultasi({Key? key, required this.title, required this.id})
       : super(key: key);
 
   final String title;
-  final int? id;
+  final String id;
 
   @override
   State<ResultKonsultasi> createState() => _ResultKonsultasiState();
@@ -19,13 +19,13 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
 
   _getData() async {
     imgList = [
-      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_one/${widget.id}',
-      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_two/${widget.id}',
-      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_three/${widget.id}',
-      'http://192.140.20.234/skripsi/SPC-KTE/web/api/konsultasi/img_four/${widget.id}',
+      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_one/${widget.id}',
+      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_two/${widget.id}',
+      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_three/${widget.id}',
+      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_four/${widget.id}',
     ];
 
-    var response = await Network().getKonsultasiResult(widget.id.toString());
+    var response = await Network().getKonsultasiResult(widget.id);
     var body = json.decode(response.body);
     print(body);
     if (response.statusCode == 200) {

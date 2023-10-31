@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class Network {
-  final String _url = 'http://192.140.20.234/skripsi/SPC-KTE/web/api';
+  final String _url = 'http://192.168.1.4/skripsi/SPC-KTE/web/api';
 
   auth(data, apiUrl) async {
     var urlAuth = Uri.parse(_url + '/auth' + apiUrl);
@@ -12,12 +12,26 @@ class Network {
     );
   }
 
-  getKonsultasi() async {}
+  getAuthUser(id) async {
+    var urlAuth = Uri.parse(_url + '/auth/user/' + id);
 
-  getKonsultasiById(id) async {}
+    return await http.get(
+      urlAuth,
+      headers: {"Accept": "application/json"},
+    );
+  }
+
+  getKonsultasiById(id) async {
+    var urlAuth = Uri.parse(_url + '/konsultasi/detail/' + id);
+
+    return await http.get(
+      urlAuth,
+      headers: {"Accept": "application/json"},
+    );
+  }
 
   getKonsultasiResult(id) async {
-    var urlAuth = Uri.parse(_url + '/konsultasi/result/' + id); 
+    var urlAuth = Uri.parse(_url + '/konsultasi/result/' + id);
 
     return await http.get(
       urlAuth,

@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:egg_detection/pages/about.dart';
+import 'package:egg_detection/pages/konsultasi/view.dart';
 import 'package:egg_detection/widgets/nav-drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -71,7 +73,14 @@ class _HomeState extends State<Home> {
                       child: InkWell(
                         splashColor: Colors.green.withAlpha(30),
                         onTap: () {
-                          Navigator.pushNamed(context, '/about');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => About(
+                                title: "About",
+                              ),
+                            ),
+                          );
                         },
                         child: const SizedBox(
                           width: 150,
@@ -88,7 +97,14 @@ class _HomeState extends State<Home> {
                       child: InkWell(
                         splashColor: Colors.green.withAlpha(30),
                         onTap: () {
-                          Navigator.pushNamed(context, '/konsultasi');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Konsultasi(
+                                title: "Konsultasi",
+                              ),
+                            ),
+                          );
                         },
                         child: const SizedBox(
                           width: 150,

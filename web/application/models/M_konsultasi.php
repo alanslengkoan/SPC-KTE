@@ -10,7 +10,7 @@ class M_konsultasi extends CI_Model
 
     public function get_all_user($id)
     {
-        $result = $this->db->query("SELECT k.id_konsultasi, k.id_users, k.nama, k.image FROM konsultasi AS k WHERE k.id_users = '$id' ORDER BY k.created_at DESC");
+        $result = $this->db->query("SELECT k.id_konsultasi, k.id_users, k.nama, k.image, k.created_at FROM konsultasi AS k WHERE k.id_users = '$id' ORDER BY k.created_at DESC");
         return $result;
     }
 

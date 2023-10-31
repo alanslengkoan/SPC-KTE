@@ -10,25 +10,31 @@ class Konsultasi extends MY_Controller
         $this->load->model('m_konsultasi');
     }
 
-    public function index()
+    public function detail($id)
     {
-        $id   = $this->uri->segment(3);
-        $data = $this->m_konsultasi->get_all_user($id);
-        $result = [];
+        $get = $this->m_konsultasi->get_all_user($id);
+        $num = $get->num_rows();
+        
+        if ($num == 0) {
+            $response = ['status' => false, 'data' => []];
+        } else {
+            $result = [];
+            foreach ($get->result() as $key => $value) {
+                $result[] = [
+                    'id_konsultasi' => $value->id_konsultasi,
+                    'id_users'      => $value->id_users,
+                    'nama'          => $value->nama,
+                    'image'         => $value->image,
+                    'created_at'    => tgl_indo($value->created_at)
+                ];
+            }
 
-        foreach ($data->result() as $key => $value) {
-            $result[] = [
-                'id_konsultasi' => $value->id_konsultasi,
-                'id_users'      => $value->id_users,
-                'nama'          => $value->nama,
-                'image'         => $value->image,
-            ];
+            $response = ['status' => true, 'data' => $result];
         }
 
-        $this->_response($result);
+        $this->_response($response);
     }
 
-    // untuk simpan
     public function save()
     {
         $post = $this->input->post(NULL, TRUE);
@@ -56,7 +62,6 @@ class Konsultasi extends MY_Controller
         $this->_response($response);
     }
 
-    // untuk proses algoritma
     public function result($id)
     {
         $get_konsultasi = $this->crud->gda('konsultasi', ['id_konsultasi' => $id]);

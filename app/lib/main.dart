@@ -1,10 +1,8 @@
+import 'dart:convert';
+
 import 'package:egg_detection/auth/sign_in/view.dart';
-import 'package:egg_detection/auth/sign_up/view.dart';
-import 'package:egg_detection/pages/about.dart';
+import 'package:egg_detection/networks/api.dart';
 import 'package:egg_detection/pages/home.dart';
-import 'package:egg_detection/pages/konsultasi/add.dart';
-import 'package:egg_detection/pages/konsultasi/list.dart';
-import 'package:egg_detection/pages/konsultasi/result.dart';
 import 'package:egg_detection/widgets/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,17 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'EDA',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
       home: CheckAuth(),
-      routes: {
-        '/home': (context) => const Home(),
-        '/about': (context) => const About(title: 'About'),
-        '/sign_in': (context) => SignIn(),
-        '/sign_up': (context) => SignUp(),
-        '/konsultasi': (context) => Konsultasi(title: 'Konsultasi'),
-        '/konsultasi/add': (context) => AddKonsultasi(title: 'Tambah Konsultasi'),
-        '/konsultasi/result': (context) => ResultKonsultasi(title: 'Hasil Konsultasi'),
-      },
     );
   }
 }
@@ -45,17 +33,41 @@ class CheckAuthState extends State<CheckAuth> {
   void _checkIfLoggedIn() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var idUsers = preferences.getString('id_users');
-    if (idUsers != null && idUsers.isNotEmpty && idUsers != '') {
-      String nama = preferences.getString("nama") ?? '';
-      String email = preferences.getString("email") ?? '';
-      bool status = preferences.getBool("status") ?? false;
 
-      setState(() {
-        _checkSession(idUsers, nama, email, status);
-      });
+    if (idUsers != null && idUsers.isNotEmpty && idUsers != '') {
+      var response = await Network().getAuthUser(idUsers.toString());
+      var body = json.decode(response.body);
+      print(body);
+      if (response.statusCode == 200) {
+        if (body['status']) {
+          String nama = body['data']['nama'];
+          String email = body['data']['email'];
+          bool status = body['data']['status'];
+
+          setState(() {
+            _checkSession(idUsers, nama, email, status);
+          });
+        } else {
+          preferences.remove("id_users");
+          preferences.remove("nama");
+          preferences.remove("email");
+          preferences.remove("status");
+
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+            builder: (context) {
+              return SignIn();
+            },
+          ), (route) => false);
+        }
+      } else {
+        throw Exception('Maaf gagal mengambil data!');
+      }
     } else {
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/sign_in', (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (context) {
+          return SignIn();
+        },
+      ), (route) => false);
     }
   }
 
@@ -67,8 +79,12 @@ class CheckAuthState extends State<CheckAuth> {
         preferences.setString("nama", nama);
         preferences.setString("email", email);
         preferences.setBool("status", status);
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/home', (route) => false);
+
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+          builder: (context) {
+            return Home();
+          },
+        ), (route) => false);
       },
     );
   }

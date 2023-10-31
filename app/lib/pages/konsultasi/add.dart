@@ -119,7 +119,7 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                   MaterialPageRoute(
                     builder: (context) => ResultKonsultasi(
                       title: "Hasil Konsultasi",
-                      id: body['id'],
+                      id: body['id'].toString(),
                     ),
                   ),
                   (route) => false,

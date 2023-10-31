@@ -64,18 +64,47 @@ class Auth extends MY_Controller
 
         $db_error = $this->db->error();
         if ($db_error['code'] != 0) {
-            $response = ['status' => FALSE,'title' => 'Gagal!', 'text' => 'Database error! Error Code [' . $db_error['code'] . '] Error: ' . $db_error['message'], 'type' => 'error', 'button' => 'Ok!'];
+            $response = ['status' => FALSE, 'title' => 'Gagal!', 'text' => 'Database error! Error Code [' . $db_error['code'] . '] Error: ' . $db_error['message'], 'type' => 'error', 'button' => 'Ok!'];
         } else {
             $this->db->trans_complete();
             if ($this->db->trans_status() === FALSE) {
-                $response = ['status' => FALSE,'title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
+                $response = ['status' => FALSE, 'title' => 'Gagal!', 'text' => 'Gagal Simpan!', 'type' => 'error', 'button' => 'Ok!'];
             } else {
-                $response = ['status' => TRUE,'title' => 'Berhasil!', 'text' => 'Berhasil Simpan!', 'type' => 'success', 'button' => 'Ok!'];
+                $response = ['status' => TRUE, 'title' => 'Berhasil!', 'text' => 'Berhasil Simpan!', 'type' => 'success', 'button' => 'Ok!'];
             }
         }
 
         $this->_response($response);
 
         $this->db->db_debug = TRUE;
+    }
+
+    public function user($id)
+    {
+        $where = [
+            'id_users' => $id
+        ];
+
+        $get = $this->db->get_where('users', $where);
+        $num = $get->num_rows();
+        $row = $get->row_array();
+
+        if ($num == 0) {
+            $response = ['status' => false, 'title' => 'Gagal!', 'text' => 'User tidak ditemukan!', 'type' => 'error', 'button' => 'Ok!'];
+        } else {
+            $data = [
+                'id'       => $row['id'],
+                'id_users' => $row['id_users'],
+                'nama'     => $row['nama'],
+                'email'    => $row['email'],
+                'username' => $row['username'],
+                'role'     => $row['roles'],
+                'status'   => true
+            ];
+
+            $response = ['status' => true, 'data' => $data];
+        }
+
+        $this->_response($response);
     }
 }
