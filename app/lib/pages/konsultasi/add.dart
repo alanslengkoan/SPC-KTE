@@ -28,7 +28,7 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
   var _label;
   var _confidence;
 
-  bool _klik = true;
+  bool _loadingLoad = true;
 
   // untuk load model
   Future loadModel() async {
@@ -155,9 +155,14 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
   void _validasiInput() {
     if (_formKey.currentState!.validate() && _imageUpload != null) {
       _formKey.currentState!.save();
-      _addData();
       setState(() {
-        _klik = false;
+        _loadingLoad = false;
+      });
+
+      _addData();
+
+      setState(() {
+        _loadingLoad = true;
       });
     } else {
       setState(() {
@@ -285,6 +290,24 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                                 ? _validasiImageUpload
                                 : _validasiImageUpload,
                           ),
+                          Container(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Material(
+                              borderRadius: BorderRadius.circular(25),
+                              color: Color(0xFF1C6758),
+                              child: MaterialButton(
+                                minWidth: double.infinity,
+                                onPressed: _validasiInput,
+                                child: Text(
+                                  'PROSES',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -305,25 +328,13 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(widget.title),
+        centerTitle: true,
         backgroundColor: const Color(0xFF1C6758),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              onTap: _validasiInput,
-              child: const Icon(
-                Icons.check,
-                size: 26.0,
-              ),
-            ),
-          ),
-        ],
       ),
       body: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
-        child: _klik != false ? _form() : _loading(),
+        margin: const EdgeInsets.all(15),
+        child: _loadingLoad ? _form() : _loading(),
       ),
     );
   }

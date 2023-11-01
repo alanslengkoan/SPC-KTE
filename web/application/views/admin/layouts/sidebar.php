@@ -31,6 +31,14 @@
                     <span class="pcoded-mtext">Klasifikasi</span>
                 </a>
             </li>
+            <li class="<?= ($this->uri->segment(2) === 'users' ? 'active' : '') ?>">
+                <a href="<?= admin_url() ?>users">
+                    <span class="pcoded-micon">
+                        <i class="fa fa-circle"></i>
+                    </span>
+                    <span class="pcoded-mtext">Users</span>
+                </a>
+            </li>
         </ul>
         <div class="pcoded-navigation-label">Pustaka</div>
         <ul class="pcoded-item pcoded-left-item">

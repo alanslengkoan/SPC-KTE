@@ -17,6 +17,7 @@ class Konsultasi extends StatefulWidget {
 
 class _KonsultasiState extends State<Konsultasi> {
   List _dataKonsultasi = [];
+  bool _loadingLoad = false;
 
   _loadKonsultasi() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -27,10 +28,14 @@ class _KonsultasiState extends State<Konsultasi> {
       if (body['status']) {
         print(body['data']);
         setState(() {
+          _loadingLoad = true;
           _dataKonsultasi = body['data'];
         });
       } else {
-        throw Exception('Maaf data belum ada!');
+        setState(() {
+          _loadingLoad = true;
+          _dataKonsultasi = [];
+        });
       }
     } else {
       throw Exception('Maaf gagal mengambil data!');
@@ -45,6 +50,23 @@ class _KonsultasiState extends State<Konsultasi> {
 
   @override
   Widget build(BuildContext context) {
+    _loading() {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    _emptyList() {
+      return Container(
+        child: Center(
+          child: Text(
+            'Belum ada data konsultasi',
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+      );
+    }
+
     _listKonsultasiUser() {
       return Container(
         child: ListView.builder(
@@ -110,10 +132,14 @@ class _KonsultasiState extends State<Konsultasi> {
       );
     }
 
+    _show() {
+      return _dataKonsultasi.isEmpty ? _emptyList() : _listKonsultasiUser();
+    }
+
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(widget.title),
+        centerTitle: true,
         backgroundColor: const Color(0xFF1C6758),
         actions: <Widget>[
           Padding(
@@ -139,7 +165,7 @@ class _KonsultasiState extends State<Konsultasi> {
       ),
       body: Container(
         margin: const EdgeInsets.all(15),
-        child: _listKonsultasiUser(),
+        child: _loadingLoad ? _show() : _loading(),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:egg_detection/networks/api.dart';
+import 'package:egg_detection/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 
@@ -19,10 +20,10 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
 
   _getData() async {
     imgList = [
-      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_one/${widget.id}',
-      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_two/${widget.id}',
-      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_three/${widget.id}',
-      'http://192.168.1.4/skripsi/SPC-KTE/web/api/konsultasi/img_four/${widget.id}',
+      Network().baseUrl() + '/konsultasi/img_one/${widget.id}',
+      Network().baseUrl() + '/konsultasi/img_two/${widget.id}',
+      Network().baseUrl() + '/konsultasi/img_three/${widget.id}',
+      Network().baseUrl() + '/konsultasi/img_four/${widget.id}',
     ];
 
     var response = await Network().getKonsultasiResult(widget.id);
@@ -202,15 +203,18 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(widget.title),
+        centerTitle: true,
         backgroundColor: const Color(0xFF1C6758),
         leading: Padding(
           padding: const EdgeInsets.only(left: 5.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/home', (Route<dynamic> route) => false);
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                builder: (context) {
+                  return Home();
+                },
+              ), (route) => false);
             },
             child: const Icon(
               Icons.arrow_back,
@@ -220,7 +224,7 @@ class _ResultKonsultasiState extends State<ResultKonsultasi> {
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+        margin: const EdgeInsets.all(15),
         child: konsultasi.isEmpty ? _loading() : _show(),
       ),
     );

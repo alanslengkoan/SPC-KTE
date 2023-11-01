@@ -19,4 +19,13 @@ class M_users extends CI_Model
         $result = $this->db->query("SELECT dis.id_distribusi, dis.id_users, dis.kd_distribusi, dis.kd_pos, dis.npwp, dis.fax, dis.telepon, dis.alamat, u.nama, u.email, u.foto FROM tb_distribusi AS dis LEFT JOIN users AS u ON dis.id_users = u.id_users WHERE dis.id_users = '$id_users'");
         return $result;
     }
+
+    public function get_all_data_dt()
+    {
+        $this->datatables->select('u.nama, u.email, u.username');
+        $this->datatables->order_by('u.ins', 'desc');
+        $this->datatables->where('u.roles', 'users');
+        $this->datatables->from('users AS u');
+        return print_r($this->datatables->generate());
+    }
 }

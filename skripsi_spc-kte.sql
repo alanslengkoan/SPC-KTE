@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql
--- Generation Time: Oct 15, 2022 at 08:19 AM
--- Server version: 5.7.37
--- PHP Version: 8.0.19
+-- Host: localhost
+-- Generation Time: Nov 01, 2023 at 01:48 AM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `spc_kualitastelur`
+-- Database: `skripsi_spc-kte`
 --
 
 -- --------------------------------------------------------
@@ -60,8 +60,9 @@ CREATE TABLE `klasifikasi` (
 
 CREATE TABLE `konsultasi` (
   `id_konsultasi` int(11) NOT NULL,
+  `id_users` int(11) DEFAULT NULL,
   `nama` varchar(50) DEFAULT NULL,
-  `image` text,
+  `image` longtext,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -80,7 +81,7 @@ CREATE TABLE `users` (
   `foto` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `roles` enum('admin') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` enum('admin','users') COLLATE utf8mb4_unicode_ci NOT NULL,
   `ins` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `upd` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -90,7 +91,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `id_users`, `nama`, `email`, `foto`, `username`, `password`, `roles`, `ins`, `upd`) VALUES
-(1, 1, 'Alan Saputra Lengkoan', 'alanlengkoan@gmail.com', NULL, 'admin', '$2y$10$UrvEbnhpVkCREvEz1WjUAu5EUEdbeTjFtQE0faPjufKxl68AtJmsi', 'admin', '2021-07-22 01:56:34', '2022-10-04 06:58:05');
+(1, 1, 'Alan Lengkoan', 'alanlengkoan@gmail.com', NULL, 'admin', '$2y$10$UrvEbnhpVkCREvEz1WjUAu5EUEdbeTjFtQE0faPjufKxl68AtJmsi', 'admin', '2021-07-22 01:56:34', '2022-11-07 12:40:17');
 
 --
 -- Indexes for dumped tables
@@ -113,7 +114,8 @@ ALTER TABLE `klasifikasi`
 -- Indexes for table `konsultasi`
 --
 ALTER TABLE `konsultasi`
-  ADD PRIMARY KEY (`id_konsultasi`);
+  ADD PRIMARY KEY (`id_konsultasi`),
+  ADD KEY `k_to_u` (`id_users`);
 
 --
 -- Indexes for table `users`
@@ -149,7 +151,7 @@ ALTER TABLE `konsultasi`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables
@@ -160,6 +162,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `basis`
   ADD CONSTRAINT `k_to_b` FOREIGN KEY (`id_klasifikasi`) REFERENCES `klasifikasi` (`id_klasifikasi`);
+
+--
+-- Constraints for table `konsultasi`
+--
+ALTER TABLE `konsultasi`
+  ADD CONSTRAINT `k_to_u` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

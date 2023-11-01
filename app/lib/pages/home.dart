@@ -40,92 +40,95 @@ class _HomeState extends State<Home> {
 
   Widget build(BuildContext context) {
     _homeScreen() {
-      return Scaffold(
-        drawer: NavDrawer(nama: nama, email: email),
-        appBar: AppBar(
-          title: const Center(
-            child: Text('EDA'),
-          ),
-          backgroundColor: const Color(0xFF1C6758),
-        ),
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              CarouselSlider(
-                options: CarouselOptions(
-                  enlargeCenterPage: true,
-                  aspectRatio: 2.0,
-                  autoPlay: true,
-                ),
-                items: imgList
-                    .map(
-                      (item) =>
-                          Image.asset(item, fit: BoxFit.cover, width: 1000),
-                    )
-                    .toList(),
+      return Center(
+        child: Column(
+          children: <Widget>[
+            CarouselSlider(
+              options: CarouselOptions(
+                enlargeCenterPage: true,
+                aspectRatio: 2.0,
+                autoPlay: true,
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Card(
-                      child: InkWell(
-                        splashColor: Colors.green.withAlpha(30),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => About(
-                                title: "About",
-                              ),
+              items: imgList
+                  .map(
+                    (item) => Image.asset(item, fit: BoxFit.cover, width: 1000),
+                  )
+                  .toList(),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Card(
+                    child: InkWell(
+                      splashColor: Color(0xFF1C6758).withAlpha(30),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => About(
+                              title: "About",
                             ),
-                          );
-                        },
-                        child: const SizedBox(
-                          width: 150,
-                          height: 100,
-                          child: Icon(
-                            Icons.info,
-                            color: Colors.green,
-                            size: 70,
                           ),
+                        );
+                      },
+                      child: const SizedBox(
+                        width: 150,
+                        height: 100,
+                        child: Icon(
+                          Icons.info,
+                          color: Color(0xFF1C6758),
+                          size: 70,
                         ),
                       ),
                     ),
-                    Card(
-                      child: InkWell(
-                        splashColor: Colors.green.withAlpha(30),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Konsultasi(
-                                title: "Konsultasi",
-                              ),
+                  ),
+                  Card(
+                    child: InkWell(
+                      splashColor: Color(0xFF1C6758).withAlpha(30),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Konsultasi(
+                              title: "Konsultasi",
                             ),
-                          );
-                        },
-                        child: const SizedBox(
-                          width: 150,
-                          height: 100,
-                          child: Icon(
-                            Icons.add,
-                            color: Colors.green,
-                            size: 70,
                           ),
+                        );
+                      },
+                      child: const SizedBox(
+                        width: 150,
+                        height: 100,
+                        child: Icon(
+                          Icons.add,
+                          color: Color(0xFF1C6758),
+                          size: 70,
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     }
 
-    return _homeScreen();
+    return Scaffold(
+        drawer: NavDrawer(
+          nama: nama,
+          email: email,
+        ),
+        appBar: AppBar(
+          title: Text('EDA'),
+          centerTitle: true,
+          backgroundColor: const Color(0xFF1C6758),
+        ),
+        body: Container(
+          margin: const EdgeInsets.all(15),
+          child: _homeScreen(),
+        ));
   }
 }

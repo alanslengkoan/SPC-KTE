@@ -1,5 +1,6 @@
 import 'package:egg_detection/auth/sign_up/view.dart';
 import 'package:egg_detection/networks/api.dart';
+import 'package:egg_detection/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'dart:convert';
@@ -13,6 +14,7 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
+  bool _klik = false;
 
   TextEditingController controllerUsername = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
@@ -86,8 +88,11 @@ class _SignInState extends State<SignIn> {
         preferences.setString("nama", nama);
         preferences.setString("email", email);
         preferences.setBool("status", status);
-        Navigator.of(context)
-            .pushNamedAndRemoveUntil('/home', (route) => false);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+          builder: (context) {
+            return Home();
+          },
+        ), (route) => false);
       },
     );
   }
@@ -95,12 +100,15 @@ class _SignInState extends State<SignIn> {
   _validasiInput() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      setState(() {
+        _klik = true;
+      });
 
       _logIn();
 
-      // setState(() {
-      //   _klik = false;
-      // });
+      setState(() {
+        _klik = false;
+      });
     }
   }
 
@@ -136,7 +144,7 @@ class _SignInState extends State<SignIn> {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                           ),
                         ),
@@ -148,20 +156,20 @@ class _SignInState extends State<SignIn> {
                             labelStyle: TextStyle(color: Colors.black87),
                             prefixIcon: Icon(
                               Icons.person_pin_rounded,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                             contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 10),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
                                 width: 2,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                           ),
@@ -176,12 +184,12 @@ class _SignInState extends State<SignIn> {
                             labelStyle: TextStyle(color: Colors.black87),
                             prefixIcon: Icon(
                               Icons.lock,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                             suffixIcon: GestureDetector(
                               child: Icon(
                                 Icons.visibility,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                               onTap: () {},
                             ),
@@ -191,13 +199,13 @@ class _SignInState extends State<SignIn> {
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
                                 width: 2,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                           ),
@@ -205,12 +213,16 @@ class _SignInState extends State<SignIn> {
                         SizedBox(height: 30),
                         Material(
                           borderRadius: BorderRadius.circular(25),
-                          color: Colors.green,
+                          color: Color(0xFF1C6758),
                           child: MaterialButton(
                             minWidth: double.infinity,
                             onPressed: _validasiInput,
-                            child:
-                                Icon(Icons.arrow_forward, color: Colors.white),
+                            child: _klik
+                                ? CircularProgressIndicator()
+                                : Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
                           ),
                         ),
                         SizedBox(height: 15),
@@ -231,7 +243,7 @@ class _SignInState extends State<SignIn> {
                               child: Text(
                                 'SIGN UP',
                                 style: TextStyle(
-                                  color: Colors.green,
+                                  color: Color(0xFF1C6758),
                                 ),
                               ),
                             ),

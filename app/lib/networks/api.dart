@@ -1,7 +1,11 @@
 import 'package:http/http.dart' as http;
 
 class Network {
-  final String _url = 'http://192.168.1.4/skripsi/SPC-KTE/web/api';
+  final String _url = 'http://192.140.20.234/skripsi/SPC-KTE/web/api';
+
+  baseUrl() {
+    return _url;
+  }
 
   auth(data, apiUrl) async {
     var urlAuth = Uri.parse(_url + '/auth' + apiUrl);

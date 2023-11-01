@@ -1,3 +1,4 @@
+import 'package:egg_detection/auth/sign_in/view.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +16,11 @@ class NavDrawer extends StatelessWidget {
       preferences.remove("nama");
       preferences.remove("email");
       preferences.remove("status");
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/sign_in', (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (context) {
+          return SignIn();
+        },
+      ), (route) => false);
     }
 
     return Drawer(
@@ -47,11 +51,6 @@ class NavDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Color(0xFF1C6758),
             ),
-          ),
-          ListTile(
-            leading: Icon(Icons.verified_user),
-            title: Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class About extends StatefulWidget {
   const About({Key? key, required this.title}) : super(key: key);
-  
+
   final String title;
 
   @override
@@ -13,7 +13,7 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     _aboutScreen() {
-      return  ListView(
+      return ListView(
         children: <Widget>[
           Container(
             child: Column(
@@ -35,13 +35,14 @@ class _AboutState extends State<About> {
         ],
       );
     }
+
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text(widget.title),
+        centerTitle: true,
         backgroundColor: const Color(0xFF1C6758),
       ),
-       body: Container(
+      body: Container(
         margin: const EdgeInsets.all(15),
         child: _aboutScreen(),
       ),

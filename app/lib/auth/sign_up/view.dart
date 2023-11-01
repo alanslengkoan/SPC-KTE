@@ -12,6 +12,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
+  bool _klik = false;
 
   TextEditingController controllerNama = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
@@ -96,11 +97,15 @@ class _SignUpState extends State<SignUp> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
+      setState(() {
+        _klik = true;
+      });
+
       _addData();
 
-      // setState(() {
-      //   _klik = false;
-      // });
+      setState(() {
+        _klik = false;
+      });
     }
   }
 
@@ -136,7 +141,7 @@ class _SignUpState extends State<SignUp> {
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                           ),
                         ),
@@ -148,20 +153,20 @@ class _SignUpState extends State<SignUp> {
                             labelStyle: TextStyle(color: Colors.black87),
                             prefixIcon: Icon(
                               Icons.person_pin_rounded,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                             contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 10),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
                                 width: 2,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                           ),
@@ -176,20 +181,20 @@ class _SignUpState extends State<SignUp> {
                             labelStyle: TextStyle(color: Colors.black87),
                             prefixIcon: Icon(
                               Icons.mail,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                             contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 10),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
                                 width: 2,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                           ),
@@ -203,20 +208,20 @@ class _SignUpState extends State<SignUp> {
                             labelStyle: TextStyle(color: Colors.black87),
                             prefixIcon: Icon(
                               Icons.account_box,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                             contentPadding: EdgeInsets.fromLTRB(20, 10, 0, 10),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
                                 width: 2,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                           ),
@@ -231,12 +236,12 @@ class _SignUpState extends State<SignUp> {
                             labelStyle: TextStyle(color: Colors.black87),
                             prefixIcon: Icon(
                               Icons.lock,
-                              color: Colors.green,
+                              color: Color(0xFF1C6758),
                             ),
                             suffixIcon: GestureDetector(
                               child: Icon(
                                 Icons.visibility,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                               onTap: () {},
                             ),
@@ -246,13 +251,13 @@ class _SignUpState extends State<SignUp> {
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
                                 width: 2,
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(25),
                               borderSide: BorderSide(
-                                color: Colors.green,
+                                color: Color(0xFF1C6758),
                               ),
                             ),
                           ),
@@ -260,12 +265,16 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(height: 30),
                         Material(
                           borderRadius: BorderRadius.circular(25),
-                          color: Colors.green,
+                          color: Color(0xFF1C6758),
                           child: MaterialButton(
                             minWidth: double.infinity,
                             onPressed: _validasiInput,
-                            child:
-                                Icon(Icons.arrow_forward, color: Colors.white),
+                            child: _klik
+                                ? CircularProgressIndicator()
+                                : Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
                           ),
                         ),
                         SizedBox(height: 15),
@@ -286,7 +295,7 @@ class _SignUpState extends State<SignUp> {
                               child: Text(
                                 'SIGN IN',
                                 style: TextStyle(
-                                  color: Colors.green,
+                                  color: Color(0xFF1C6758),
                                 ),
                               ),
                             ),
