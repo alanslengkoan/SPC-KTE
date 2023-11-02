@@ -29,6 +29,7 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
   var _confidence;
 
   bool _loadingLoad = true;
+  bool _isDeactivated = false;
 
   // untuk load model
   Future loadModel() async {
@@ -82,6 +83,12 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
           .replaceAll(RegExp(r'[0-9]'), '')
           .toUpperCase();
       _confidence = listOutputs[0]['confidence'].toStringAsFixed(2);
+
+
+      var confidence = (listOutputs[0]['confidence'] * 100).floor();
+      if (confidence > 100) {
+        _isDeactivated = true;
+      }
     });
   }
 
@@ -294,14 +301,18 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
                             margin: EdgeInsets.only(top: 20),
                             child: Material(
                               borderRadius: BorderRadius.circular(25),
-                              color: Color(0xFF1C6758),
                               child: MaterialButton(
                                 minWidth: double.infinity,
-                                onPressed: _validasiInput,
+                                onPressed:
+                                    _isDeactivated ? _validasiInput : null,
+                                disabledTextColor: Colors.black,
+                                disabledColor: Colors.black26,
+                                textColor: Colors.white,
+                                color: Color(0xFF1C6758),
                                 child: Text(
                                   'PROSES',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     fontSize: 15,
                                   ),
                                 ),
