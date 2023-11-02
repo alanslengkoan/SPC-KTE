@@ -1,7 +1,10 @@
 import 'package:http/http.dart' as http;
 
 class Network {
-  final String _url = 'http://192.140.20.234/skripsi/SPC-KTE/web/api';
+  // dev
+  // final String _url = 'http://192.168.0.113/skripsi/SPC-KTE/web/api';
+  // prod
+  final String _url = 'http://192.168.43.113/skripsi/web/api';
 
   baseUrl() {
     return _url;

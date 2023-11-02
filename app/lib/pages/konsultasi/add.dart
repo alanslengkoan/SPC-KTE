@@ -84,9 +84,7 @@ class _AddKonsultasiState extends State<AddKonsultasi> {
           .toUpperCase();
       _confidence = listOutputs[0]['confidence'].toStringAsFixed(2);
 
-
-      var confidence = (listOutputs[0]['confidence'] * 100).floor();
-      if (confidence > 100) {
+      if (_label != 'BUKAN TELUR') {
         _isDeactivated = true;
       }
     });
