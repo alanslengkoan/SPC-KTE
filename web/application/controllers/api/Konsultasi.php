@@ -45,7 +45,6 @@ class Konsultasi extends MY_Controller
 
         $data = [
             'id_users' => $post['id_users'],
-            'nama'     => $post['nama'],
             'image'    => $post['image'],
         ];
 

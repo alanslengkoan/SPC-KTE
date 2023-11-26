@@ -1,4 +1,12 @@
-0 Telur Coklat
-1 Telur Coklat Putih
-2 Telur Putih
-3 Bukan Telur
+0 Telur Ayam Kampung
+1 Telur Busuk Cangkang Kotor dan Berkeringat
+2 Telur Busuk Cangkang Putih
+3 Telur Busuk Cangkang Retak atau Pecah
+4 Telur Busuk Cangkang Pudar Warna Coklat
+5 Telur Busuk Cangkang Pudar Warna Coklat Putih
+6 Telur Busuk Cangkang Pudar Warna Putih
+7 Telur Itik
+8 Bukan Telur Asli
+9 Telur Ayam Ras Coklat
+10 Telur Ayam Ras Putih
+11 Telur Ayam Ras Putih Coklat
