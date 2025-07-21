@@ -32,7 +32,7 @@ class Konsultasi extends MY_Controller
     public function process()
     {
         $post = $this->input->post(NULL, TRUE);
-
+        
         $image = add_picture('image');
 
         if ($image['status']) {
